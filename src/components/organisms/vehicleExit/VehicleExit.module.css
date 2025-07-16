@@ -1,0 +1,43 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  color: #fff;
+  font-size: 2rem;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: 100px;
+}
+
+.input {
+  background-color: #2d2d2d;
+  border: none;
+  width: 200px;
+  border-radius: 14px;
+  padding: 14px 10px;
+  color: #007fff;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 3rem;
+}
+
+.containerPlaca {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.labelPlaca {
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+}

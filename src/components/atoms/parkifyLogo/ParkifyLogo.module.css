@@ -1,0 +1,21 @@
+.title {
+  color: #fff;
+  font-size: 5rem;
+  text-align: center;
+  margin: 0;
+  font-family: "Chela One", system-ui;
+  font-weight: 500;
+  position: relative;
+  z-index: 2;
+}
+
+.strong {
+  color: #0059b3;
+}
+
+/* MEDIA QUERIES */
+@media (width <= 768px) {
+  .title {
+    font-size: 3rem;
+  }
+}

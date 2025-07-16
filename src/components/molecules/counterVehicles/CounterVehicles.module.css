@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  gap: 30px;
+  justify-content: start;
+  align-items: center;
+  margin-left: 30px;
+  margin-bottom: 5px;
+}
+
+.counter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.counter svg {
+  width: 30px;
+  height: 30px;
+  color: #007fff;
+}
+
+.span {
+  color: #fff;
+  font-size: 1.6rem;
+  font-weight: 700;
+}

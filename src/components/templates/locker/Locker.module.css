@@ -1,0 +1,82 @@
+.locker {
+  width: 120px;
+  height: 170px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border: 2px solid #000000;
+  background-color: #2d2d2d;
+}
+
+.chart {
+  width: 60px;
+  height: 25px;
+  position: absolute;
+  z-index: 10;
+  top: 10px;
+  background: #000000;
+}
+
+.chart p {
+  font-size: 20px;
+  color: #ffffff;
+  font-weight: 800;
+  text-align: center;
+  margin: 0;
+}
+
+.lock {
+  width: 3px;
+  height: 35px;
+  position: absolute;
+  top: 60px;
+  left: 10px;
+  border: 2px solid #fff;
+}
+
+.circle {
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  top: 10px;
+  left: 8px;
+  background: #00ff2f;
+  border-radius: 100%;
+}
+
+.bars {
+  width: 60px;
+  position: absolute;
+  top: 60px;
+  left: 28px;
+  background-color: #fff;
+  border: 2px solid #fff;
+}
+
+.bars2 {
+  top: 68px;
+}
+
+.bars3 {
+  top: 76px;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 110px;
+  gap: 10px;
+}
+
+.description p {
+  margin: 0;
+}
+
+.placa {
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+}

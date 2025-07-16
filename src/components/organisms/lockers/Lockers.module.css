@@ -1,0 +1,13 @@
+.lockers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Ajustable */
+  gap: 8px;
+  margin-top: 40px;
+}
+
+@media (width <= 764px) {
+  .lockers {
+    gap: 5px;
+    margin-left: 10px;
+  }
+}

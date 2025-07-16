@@ -1,0 +1,8 @@
+.date {
+  font-size: 1.5rem;
+  color: #ffffff;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 30px;
+  z-index: 10;
+}
