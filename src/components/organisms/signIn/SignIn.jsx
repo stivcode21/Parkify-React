@@ -10,31 +10,31 @@ const SignIn = () => {
   };
   return (
     <>
-      <h1 class={styles.title}>INICIAR SESION</h1>
-      <form class={styles.form}>
-        <label class={styles.label} for="usuario">
-          Correo:
+      <h1 className={styles.title}>INICIAR SESION</h1>
+      <form className={styles.form}>
+        <label className={styles.label} for="usuario">
+          Usuario:
         </label>
         <input
-          class={styles.input}
+          className={styles.input}
           type="text"
           id="usuario"
           name="usuario"
           autocomplete="username"
         />
 
-        <label class={styles.label} for="contrasena">
+        <label className={styles.label} for="contrasena">
           Contraseña:
         </label>
         <input
-          class={styles.input}
+          className={styles.input}
           type="password"
           id="contrasena"
           name="contrasena"
           autocomplete="current-password"
         />
 
-        <div class={styles.button}>
+        <div className={styles.button}>
           <Button onClick={send} name="Acceder" />
         </div>
       </form>
