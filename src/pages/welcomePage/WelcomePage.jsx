@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 const WelcomePage = () => {
   const navigate = useNavigate();
 
-  const toggleButton = () => {
-    navigate("/login");
+  const handleSubmit = () => {
+    navigate("/signIn");
   };
   return (
     <div className={styles.container}>
@@ -16,7 +16,7 @@ const WelcomePage = () => {
       </div>
       <img src="/bgAutos.png" alt="background" className={styles.cars} />
       <div className={styles.button}>
-        <Button onClick={toggleButton} name="Iniciar" />
+        <Button onClick={handleSubmit} name="Iniciar" />
       </div>
       <footer className={styles.footer}>
         © 2025 desarrollado por stivcode
