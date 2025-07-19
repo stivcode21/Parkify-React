@@ -1,41 +1,40 @@
 import Button from "@/components/templates/button/Button";
 import styles from "./SignIn.module.css";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const SignIn = () => {
-  const navigate = useNavigate();
+  const [user, setUser] = useState("");
+  const [password, setPassword] = useState("");
 
-  const send = () => {
-    navigate("/hero");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(user, password);
   };
   return (
     <>
       <h1 className={styles.title}>INICIAR SESION</h1>
-      <form className={styles.form}>
-        <label className={styles.label} for="usuario">
-          Usuario:
-        </label>
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <label className={styles.label}>Usuario:</label>
         <input
           className={styles.input}
           type="text"
           id="usuario"
           name="usuario"
-          autocomplete="username"
+          onChange={(e) => setUser(e.target.value)}
         />
 
-        <label className={styles.label} for="contrasena">
-          Contraseña:
-        </label>
+        <label className={styles.label}>Contraseña:</label>
         <input
           className={styles.input}
           type="password"
           id="contrasena"
           name="contrasena"
-          autocomplete="current-password"
+          onChange={(e) => setPassword(e.target.value)}
         />
 
         <div className={styles.button}>
-          <Button onClick={send} name="Acceder" />
+          <Button name="Acceder" />
         </div>
       </form>
     </>

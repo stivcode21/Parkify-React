@@ -15,7 +15,6 @@ const ProfileCreate = () => {
           type="text"
           id="usuario"
           name="usuario"
-          autocomplete="username"
         />
 
         <label className={styles.label} for="contrasena">
