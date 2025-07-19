@@ -24,10 +24,8 @@
 }
 
 .button {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-70%);
-  bottom: 80px;
+  margin: 0 auto;
+  margin-bottom: 80px;
 }
 
 .footer {
