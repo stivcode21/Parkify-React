@@ -81,7 +81,7 @@
   }
 }
 
-@media (width <= 768px) {
+@media (width <= 800px) {
   .leftPanel {
     width: 100%;
   }
