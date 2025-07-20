@@ -46,8 +46,7 @@ const SignUp = () => {
       <h2 className={styles.subtitle}>
         Para registrarte, primero debes{" "}
         <strong>autenticar tu correo electrónico.</strong> Te llegara un{" "}
-        <strong>enlace de verificación,</strong> sigue las instrucciones para
-        continuar con el registro.
+        <strong>enlace de verificación,</strong> y continua con el registro.
       </h2>
       <form className={styles.form} onSubmit={handleSubmit}>
         <label className={styles.label}>Correo:</label>
