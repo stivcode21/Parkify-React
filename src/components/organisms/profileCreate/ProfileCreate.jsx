@@ -62,15 +62,13 @@ const ProfileCreate = () => {
       </h2>
 
       <form className={styles.form} onSubmit={handleSubmit}>
-        <label className={styles.label} for="contrasena">
-          Contraseña:
-        </label>
+        <label className={styles.label}>Contraseña:</label>
         <div className={styles.containerPassword}>
           <input
             className={styles.input}
             type={showPassword ? "text" : "password"}
             onChange={(e) => setPassword(e.target.value)}
-            id="contrasena"
+            id="contrasena1"
             name="contrasena"
           />
           <span
@@ -86,15 +84,13 @@ const ProfileCreate = () => {
           </span>
         </div>
 
-        <label className={styles.label} for="contrasena">
-          Confirma contraseña:
-        </label>
+        <label className={styles.label}>Confirma contraseña:</label>
         <div className={styles.containerPassword}>
           <input
             className={styles.input}
             type={showPassword ? "text" : "password"}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            id="contrasena"
+            id="contrasena2"
             name="contrasena"
           />
           <span
