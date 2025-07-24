@@ -3,6 +3,7 @@ import styles from "./SignUp.module.css";
 import { useState } from "react";
 import { useNotification } from "@/components/templates/notificationProvider/notificationProvider";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "../../../supabase/supabase";
 
 const SignUp = () => {
   const [correo, setCorreo] = useState("");
@@ -32,10 +33,13 @@ const SignUp = () => {
 
     try {
       console.log(correo);
+      await supabase.auth.signInWithOtp({
+        email: correo,
+      });
       setCorreo("");
       notify("Success", "Correo enviado correctamente");
-      navigate("/createProfile");
     } catch (error) {
+      console.log(error);
       notify("Error", "Error al enviar el correo, intente nuevamente.");
     }
   };
