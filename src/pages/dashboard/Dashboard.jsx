@@ -3,7 +3,7 @@ import styles from "./Dashboard.module.css";
 import Reloj from "@/components/molecules/reloj/Reloj";
 import ActuallyDate from "@/components/molecules/actuallyDate/ActuallyDate";
 import ModalOverlay from "@/components/templates/modalOverlay/ModalOverlay";
-import Box from "@/components/molecules/box/Box";
+import BoxButtons from "@/components/molecules/boxButtons/BoxButtons";
 
 const Dashboard = () => {
   return (
@@ -21,7 +21,7 @@ const Dashboard = () => {
           className={styles.auto}
         />
 
-        <Box />
+        <BoxButtons />
         <ModalOverlay />
 
         <footer className={styles.footer}>
