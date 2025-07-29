@@ -2,8 +2,10 @@ import { useState } from "react";
 import styles from "./ProfileCreate.module.css";
 import Button from "@/components/templates/button/Button";
 import { EyeClosedIcon, EyeIcon } from "lucide-react";
-import { useNotification } from "../../templates/notificationProvider/notificationProvider";
+import { useNotification } from "@/components/templates/notificationProvider/notificationProvider";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "@/supabase/supabase";
+import bcrypt from "bcryptjs";
 
 const ProfileCreate = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -42,12 +44,40 @@ const ProfileCreate = () => {
     if (!validateForm()) return;
 
     try {
-      console.log(password);
+      // Obtener el usuario autenticado
+      const {
+        data: { user },
+        error: userError,
+      } = await supabase.auth.getUser();
+
+      if (userError || !user) {
+        notify("Error", "No se pudo obtener el usuario autenticado.");
+        return;
+      }
+
+      // Hashear la contraseña
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      // Insertar en la tabla 'admins'
+      const { error: insertError } = await supabase.from("admins").insert({
+        id: user.id,
+        email: user.email,
+        password: hashedPassword,
+      });
+
+      if (insertError) {
+        notify("Error", "No se pudo guardar la contraseña.");
+        console.log(insertError);
+        return;
+      }
+
       setPassword("");
-      notify("Success", "Perfil creado correctamente");
+      setConfirmPassword("");
+      notify("Success", "Perfil creado correctamente.");
       navigate("/hero");
     } catch (error) {
-      notify("Error", "Error al enviar el correo, intente nuevamente.");
+      notify("Error", "Error al guardar los datos, intente nuevamente.");
+      console.log(error);
     }
   };
 
