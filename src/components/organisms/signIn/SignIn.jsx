@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useNotification } from "@/components/templates/notificationProvider/notificationProvider";
 import { EyeClosedIcon, EyeIcon } from "lucide-react";
+import bcrypt from "bcryptjs";
+import { supabase } from "@/supabase/supabase";
 
 const SignIn = () => {
   const [correo, setCorreo] = useState("");
@@ -24,7 +26,6 @@ const SignIn = () => {
       notify("Warning", "Por favor, ingresa tu contraseña.");
       return false;
     }
-
     if (!emailRegex.test(correo)) {
       notify("Warning", "El correo no cumple con el formato requerido");
       return false;
@@ -38,21 +39,57 @@ const SignIn = () => {
     if (!validateForm()) return;
 
     try {
-      console.log(correo, password);
+      //Verificar existencia de usuario en tabla admins
+      const { data: user, error } = await supabase
+        .from("admins")
+        .select("*")
+        .eq("email", correo)
+        .single();
+
+      if (error || !user) {
+        notify("Error", "Correo no registrado.");
+        return;
+      }
+
+      // Verificar contraseña
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+        notify("Error", "Contraseña incorrecta.");
+        return;
+      }
+
+      // Enviar Magic Link solo si la autenticación es válida
+      const { error: otpError } = await supabase.auth.signInWithOtp({
+        email: correo,
+        options: {
+          shouldCreateUser: false,
+        },
+      });
+
+      if (otpError) {
+        notify("Error", "No se pudo enviar el enlace de acceso.");
+        return;
+      }
+
+      notify(
+        "Success",
+        "Usuario válido. Hemos enviado un enlace de verificación a tu correo. Revísalo para continuar."
+      );
       setCorreo("");
       setPassword("");
-      notify("Success", "Usuario registrado correctamente");
     } catch (error) {
-      notify("Error", "Error al enviar el correo, intente nuevamente.");
+      console.error("Error en inicio de sesión:", error);
+      notify("Error", "Ha ocurrido un error inesperado.");
     }
   };
 
   return (
     <>
-      <h1 className={styles.title}>INICIAR SESION</h1>
+      <h1 className={styles.title}>INICIAR SESIÓN</h1>
       <h2 className={styles.subtitle}>
-        ¿Ya tienes cuenta? Inicia sesión con tu <strong>correo</strong> y{" "}
-        <strong>contraseña.</strong>
+        Ingresa tu <strong>correo</strong> y <strong>contraseña</strong> para
+        que podamos enviarte un enlace de acceso si las credenciales son
+        válidas.
       </h2>
 
       <form className={styles.form} onSubmit={handleSubmit}>
