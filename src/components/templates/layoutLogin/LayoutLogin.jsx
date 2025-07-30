@@ -29,7 +29,7 @@ const LayoutLogin = ({ children }) => {
           </div>
 
           <img
-            src="./src/assets/parking-info.svg"
+            src="/parking-info.svg"
             className={styles.parking}
             alt="parking icon"
           />

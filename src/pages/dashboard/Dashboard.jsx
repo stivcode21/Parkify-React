@@ -26,11 +26,7 @@ const Dashboard = () => {
         </header>
 
         <LogoParkify />
-        <img
-          src="./src/assets/auto.svg"
-          alt="auto-icon"
-          className={styles.auto}
-        />
+        <img src="/auto.svg" alt="auto-icon" className={styles.auto} />
 
         <BoxButtons />
         <ModalOverlay />
