@@ -33,7 +33,7 @@ const AppRouter = () => {
         .single();
 
       if (admin) {
-        navigate("/hero");
+        navigate("/home");
       } else {
         navigate("/createProfile");
       }
@@ -62,7 +62,7 @@ const AppRouter = () => {
       <Route path="/signIn" element={<UserSignIn />} />
       <Route path="/signUp" element={<UserSignUp />} />
       <Route path="/createProfile" element={<UserCreateProfile />} />
-      <Route path="/hero" element={<Dashboard />} />
+      <Route path="/home" element={<Dashboard />} />
     </Routes>
   );
 };
