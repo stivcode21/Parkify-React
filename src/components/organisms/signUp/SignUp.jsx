@@ -3,7 +3,7 @@ import styles from "./SignUp.module.css";
 import { useState } from "react";
 import { useNotification } from "@/components/templates/notificationProvider/notificationProvider";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "../../../supabase/supabase";
+import { supabase } from "@/supabase/supabase";
 
 const SignUp = () => {
   const [correo, setCorreo] = useState("");
