@@ -39,7 +39,7 @@ const SignIn = () => {
     if (!validateForm()) return;
 
     try {
-      //Verificar existencia de usuario en tabla admins
+      //Verificar existencia de usuario
       const { data: user, error } = await supabase
         .from("admins")
         .select("*")
@@ -58,7 +58,7 @@ const SignIn = () => {
         return;
       }
 
-      // Enviar Magic Link solo si la autenticación es válida
+      // Enviar Link solo si la autenticación es válida
       const { error: otpError } = await supabase.auth.signInWithOtp({
         email: correo,
         options: {
