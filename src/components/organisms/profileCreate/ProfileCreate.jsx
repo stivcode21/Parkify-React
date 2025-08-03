@@ -74,7 +74,7 @@ const ProfileCreate = () => {
       setPassword("");
       setConfirmPassword("");
       notify("Success", "Perfil creado correctamente.");
-      navigate("/hero");
+      navigate("/home");
     } catch (error) {
       notify("Error", "Error al guardar los datos, intente nuevamente.");
       console.log(error);
