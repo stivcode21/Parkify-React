@@ -13,6 +13,7 @@ const ActuallyDate = () => {
 
     const today = new Date(date.toLocaleString("en-US", opciones));
 
+    //obtengo dia, mes y año
     const dia = String(today.getDate()).padStart(2, "0");
     const mes = String(today.getMonth() + 1).padStart(2, "0");
     const año = today.getFullYear();
