@@ -6,6 +6,7 @@ import { useNotification } from "@/components/templates/notificationProvider/not
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/supabase/supabase";
 import bcrypt from "bcryptjs";
+import createLockersAdmins from "@/utils/createLockersAdmins";
 
 const ProfileCreate = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -70,6 +71,9 @@ const ProfileCreate = () => {
         console.log(insertError);
         return;
       }
+
+      // Crear casilleros para el admin
+      await createLockersAdmins(user.id);
 
       setPassword("");
       setConfirmPassword("");

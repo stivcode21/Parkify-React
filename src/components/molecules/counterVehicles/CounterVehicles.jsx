@@ -1,14 +1,14 @@
-import React from "react";
 import styles from "./CounterVehicles.module.css";
-import { vehicles } from "@/data/dataVehicles";
 
-const CounterVehicles = () => {
+const CounterVehicles = ({ vehicles }) => {
   const vehiclesCount = vehicles.filter(
-    (vehicle) => vehicle.tipo === "Carro"
+    (vehicle) => vehicle.tipo === "carro"
   ).length;
+
   const motorcyclesCount = vehicles.filter(
-    (vehicle) => vehicle.tipo === "Moto"
+    (vehicle) => vehicle.tipo === "moto"
   ).length;
+
   return (
     <div className={styles.container}>
       <div className={styles.counter}>

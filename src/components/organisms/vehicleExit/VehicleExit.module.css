@@ -1,8 +1,30 @@
 .container {
   display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.column1 {
+  margin-top: -30px;
+  background-color: #2d2d2d;
+  border-radius: 10px;
+  width: 30%;
+  height: 320px;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+}
+
+.containerButton {
+  margin-top: 40px;
+}
+
+.column2 {
+  display: flex;
   flex-direction: column;
   gap: 120px;
-  justify-content: center;
   align-items: center;
 }
 
@@ -40,4 +62,21 @@
   color: #fff;
   font-size: 1.2rem;
   font-weight: bold;
+}
+
+@media (width <= 900px) {
+  .container {
+    flex-direction: column;
+    gap: 20px;
+    padding: 0 10px;
+  }
+  .column1 {
+    width: 70%;
+  }
+}
+
+@media (width <= 764px) {
+  .column1 {
+    width: 90%;
+  }
 }
