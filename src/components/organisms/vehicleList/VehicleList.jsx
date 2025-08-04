@@ -1,25 +1,65 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./VehicleList.module.css";
 import ParkifyLogo from "@/components/atoms/parkifyLogo/ParkifyLogo";
 import CounterVehicles from "@/components/molecules/counterVehicles/CounterVehicles";
 import RowListVehicles from "@/components/molecules/rowListVehicles/RowListVehicles";
-import { vehicles } from "@/data/dataVehicles";
 import useTiempoTranscurrido from "@/hooks/useTiempoTranscurrido";
 import useCalculoPago from "@/hooks/useCalculoPago";
 import TicketBill from "@/components/molecules/ticketBill/TicketBill";
+import { useNotification } from "@/components/templates/notificationProvider/notificationProvider";
+import { supabase } from "@/supabase/supabase";
 
 const VehicleList = () => {
+  const [vehiculos, setVehiculos] = useState([]);
   const [selected, setSelected] = useState(null);
+  const notify = useNotification();
 
-  const vehicleSelected = vehicles.find((v) => v.placa === selected);
-  const tiempoPasado = useTiempoTranscurrido(vehicleSelected?.fecha);
-  const valorAPagar = useCalculoPago(vehicleSelected?.fecha);
+  useEffect(() => {
+    const fetchVehiculos = async () => {
+      // Obtener el usuario autenticado
+      const {
+        data: { user },
+        error: userError,
+      } = await supabase.auth.getUser();
+
+      if (userError || !user) {
+        notify("Error", "No se pudo obtener el usuario autenticado.");
+        return;
+      }
+
+      // Consultar la tabla 'vehiculo' para obtener los vehículos del usuario
+      const { data: dataVehicles, error: errorVehicles } = await supabase
+        .from("vehiculo")
+        .select(
+          `
+    placa,
+    tipo,
+    fecha_entrada,
+    casilleros(id_locker)
+  `
+        )
+        .eq("id_user", user.id);
+
+      if (errorVehicles) {
+        notify("Error", "Error al obtener vehículos");
+        console.error("Error al obtener vehículos:", error);
+      } else {
+        setVehiculos(dataVehicles);
+      }
+    };
+
+    fetchVehiculos();
+  }, []);
+
+  const vehicleSelected = vehiculos.find((v) => v.placa === selected);
+  const tiempoPasado = useTiempoTranscurrido(vehicleSelected?.fecha_entrada);
+  const valorAPagar = useCalculoPago(vehicleSelected?.fecha_entrada);
 
   return (
     <>
       <ParkifyLogo />
       <h2 className={styles.title}>Lista de Vehículos</h2>
-      <CounterVehicles />
+      <CounterVehicles vehicles={vehiculos} />
       <div className={styles.container}>
         <div className={styles.column1}>
           <table>
@@ -32,14 +72,14 @@ const VehicleList = () => {
               </tr>
             </thead>
             <tbody>
-              {vehicles.map((vehicle, index) => (
+              {vehiculos.map((vehicle, index) => (
                 <RowListVehicles
                   selected={selected}
                   setSelected={setSelected}
                   placaID={vehicle.placa}
                   vehiculo={vehicle.tipo}
-                  fecha={vehicle.fecha}
-                  casillero={vehicle.casillero}
+                  fecha={vehicle.fecha_entrada}
+                  casillero={vehicle.casilleros[0]?.id_locker || "-"}
                   key={index}
                 />
               ))}
