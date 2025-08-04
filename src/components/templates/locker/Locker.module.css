@@ -9,6 +9,10 @@
   background-color: #2d2d2d;
 }
 
+.off {
+  background-color: #2d2d2d66;
+}
+
 .chart {
   width: 60px;
   height: 25px;
@@ -41,10 +45,16 @@
   position: absolute;
   top: 10px;
   left: 8px;
-  background: #00ff2f;
   border-radius: 100%;
 }
 
+.active {
+  background: #00ff2f;
+}
+
+.busy {
+  background: #ff0000;
+}
 .bars {
   width: 60px;
   position: absolute;
