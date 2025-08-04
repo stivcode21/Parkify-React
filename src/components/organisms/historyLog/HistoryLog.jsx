@@ -1,11 +1,44 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./HistoryLog.module.css";
 import RowListVehicles from "@/components/molecules/rowListVehicles/RowListVehicles";
 import ParkifyLogo from "@/components/atoms/parkifyLogo/ParkifyLogo";
-import { Vehicles } from "@/data/dataHistory";
+import { useNotification } from "@/components/templates/notificationProvider/notificationProvider";
+import { supabase } from "@/supabase/supabase";
 
 const HistoryLog = () => {
+  const [vehiculos, setVehiculos] = useState([]);
   const [selected, setSelected] = useState(null);
+  const notify = useNotification();
+
+  useEffect(() => {
+    const fetchVehiculos = async () => {
+      // Obtener el usuario autenticado
+      const {
+        data: { user },
+        error: userError,
+      } = await supabase.auth.getUser();
+
+      if (userError || !user) {
+        notify("Error", "No se pudo obtener el usuario autenticado.");
+        return;
+      }
+
+      // Consultar la tabla 'vehiculo' para obtener los vehículos del usuario
+      const { data: dataVehicles, error: errorVehicles } = await supabase
+        .from("historial")
+        .select("*")
+        .eq("id_user", user.id);
+
+      if (errorVehicles) {
+        notify("Error", "Error al obtener vehículos");
+        console.error("Error al obtener vehículos:", error);
+      } else {
+        setVehiculos(dataVehicles);
+      }
+    };
+
+    fetchVehiculos();
+  }, []);
 
   return (
     <>
@@ -24,14 +57,14 @@ const HistoryLog = () => {
               </tr>
             </thead>
             <tbody>
-              {Vehicles.map((vehicle, index) => (
+              {vehiculos.map((vehicle, index) => (
                 <RowListVehicles
                   selected={selected}
                   setSelected={setSelected}
                   history={true}
                   placaID={vehicle.placa}
                   vehiculo={vehicle.tipo}
-                  fecha={vehicle.fecha}
+                  fecha={vehicle.fechaEntrada}
                   salida={vehicle.fechaSalida}
                   pago={vehicle.pago}
                   key={index}
