@@ -44,7 +44,7 @@ const VehicleEntry = () => {
     const fecha = captureDate();
 
     try {
-      // Obtener el usuario autenticado
+      // Obtener el usuario
       const {
         data: { user },
         error: userError,
