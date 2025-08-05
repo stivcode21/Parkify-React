@@ -95,6 +95,10 @@ strong {
   color: #6b7280;
 }
 
+.successMessage {
+  color: #0abf30;
+}
+
 @media (width <= 800px) {
   .subtitle {
     width: 70%;

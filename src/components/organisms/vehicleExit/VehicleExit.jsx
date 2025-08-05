@@ -8,11 +8,13 @@ import useCalculoPago from "@/hooks/useCalculoPago";
 import TicketBill from "@/components/molecules/ticketBill/TicketBill";
 import useTiempoTranscurrido from "@/hooks/useTiempoTranscurrido";
 import { useState } from "react";
+import { useLoader } from "@/context/loaderProvider/LoaderProvider";
 
 const VehicleExit = () => {
   const [dataVehiculo, setDataVehiculo] = useState(null);
   const [placa, setPlaca] = useState("");
   const [ticketBill, setTicketBill] = useState(false);
+  const { toggleLoader } = useLoader();
   const notify = useNotification();
   const captureDate = useClickDateTime();
 
@@ -33,6 +35,8 @@ const VehicleExit = () => {
     if (!validateForm()) return;
 
     try {
+      toggleLoader(true);
+      // Obtener el usuario autenticado
       const {
         data: { user },
         error: userError,
@@ -61,6 +65,8 @@ const VehicleExit = () => {
     } catch (err) {
       console.error(err);
       notify("Error", "Error al buscar el vehículo.");
+    } finally {
+      toggleLoader(false);
     }
   };
 

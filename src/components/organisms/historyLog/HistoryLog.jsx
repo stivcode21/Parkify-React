@@ -4,14 +4,17 @@ import RowListVehicles from "@/components/molecules/rowListVehicles/RowListVehic
 import ParkifyLogo from "@/components/atoms/parkifyLogo/ParkifyLogo";
 import { useNotification } from "@/components/templates/notificationProvider/notificationProvider";
 import { supabase } from "@/supabase/supabase";
+import { useLoader } from "@/context/loaderProvider/LoaderProvider";
 
 const HistoryLog = () => {
   const [vehiculos, setVehiculos] = useState([]);
   const [selected, setSelected] = useState(null);
   const notify = useNotification();
+  const { toggleLoader } = useLoader();
 
   useEffect(() => {
     const fetchVehiculos = async () => {
+      toggleLoader(true);
       // Obtener el usuario autenticado
       const {
         data: { user },
@@ -35,6 +38,7 @@ const HistoryLog = () => {
       } else {
         setVehiculos(dataVehicles);
       }
+      toggleLoader(false);
     };
 
     fetchVehiculos();

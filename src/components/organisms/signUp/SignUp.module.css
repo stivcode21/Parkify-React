@@ -64,6 +64,10 @@ strong {
   margin-left: 6px;
 }
 
+.successMessage {
+  color: #0abf30;
+}
+
 @media (width <= 800px) {
   .subtitle {
     width: 70%;

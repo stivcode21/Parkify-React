@@ -3,13 +3,16 @@ import styles from "./Lockers.module.css";
 import { useNotification } from "@/components/templates/notificationProvider/notificationProvider";
 import { supabase } from "@/supabase/supabase";
 import { useEffect, useState } from "react";
+import { useLoader } from "@/context/loaderProvider/LoaderProvider";
 
 const Lockers = () => {
   const [lockers, setLockers] = useState([]);
   const notify = useNotification();
+  const { toggleLoader } = useLoader();
 
   useEffect(() => {
     const fetchLockers = async () => {
+      toggleLoader(true);
       // Obtener el usuario autenticado
       const {
         data: { user },
@@ -35,6 +38,7 @@ const Lockers = () => {
         setLockers(dataLockers);
         console.log("Lockers:", dataLockers);
       }
+      toggleLoader(false);
     };
 
     fetchLockers();

@@ -7,12 +7,14 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/supabase/supabase";
 import bcrypt from "bcryptjs";
 import createLockersAdmins from "@/utils/createLockersAdmins";
+import { useLoader } from "@/context/loaderProvider/LoaderProvider";
 
 const ProfileCreate = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const notify = useNotification();
+  const { toggleLoader } = useLoader();
   const navigate = useNavigate();
 
   const validateForm = () => {
@@ -45,6 +47,7 @@ const ProfileCreate = () => {
     if (!validateForm()) return;
 
     try {
+      toggleLoader(true);
       // Obtener el usuario autenticado
       const {
         data: { user },
@@ -82,6 +85,8 @@ const ProfileCreate = () => {
     } catch (error) {
       notify("Error", "Error al guardar los datos, intente nuevamente.");
       console.log(error);
+    } finally {
+      toggleLoader(false);
     }
   };
 

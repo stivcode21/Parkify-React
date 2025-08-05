@@ -5,11 +5,13 @@ import ButtonSend from "@/components/atoms/buttonSend/ButtonSend";
 import { useNotification } from "@/components/templates/notificationProvider/notificationProvider";
 import { supabase } from "@/supabase/supabase";
 import useClickDateTime from "@/hooks/useClickDate";
+import { useLoader } from "@/context/loaderProvider/LoaderProvider";
 
 const VehicleEntry = () => {
   const [vehiculo, setVehiculo] = useState("");
   const [placa, setPlaca] = useState("");
   const [casillero, setCasillero] = useState("");
+  const { toggleLoader } = useLoader();
   const notify = useNotification();
   const captureDate = useClickDateTime();
 
@@ -44,6 +46,7 @@ const VehicleEntry = () => {
     const fecha = captureDate();
 
     try {
+      toggleLoader(true);
       // Obtener el usuario
       const {
         data: { user },
@@ -111,6 +114,8 @@ const VehicleEntry = () => {
     } catch (error) {
       notify("Error", "Error al guardar los datos, intente nuevamente.");
       console.log(error);
+    } finally {
+      toggleLoader(false);
     }
   };
 

@@ -9,7 +9,7 @@ const SignUp = () => {
   const [correo, setCorreo] = useState("");
   const [sent, setSent] = useState(false);
   const notify = useNotification();
-  const { showLoader, hideLoader } = useLoader();
+  const { toggleLoader } = useLoader();
 
   const validateForm = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -33,7 +33,7 @@ const SignUp = () => {
     if (!validateForm()) return;
 
     try {
-      showLoader();
+      toggleLoader(true);
 
       const { error } = await supabase.auth.signInWithOtp({
         email: correo,
@@ -48,7 +48,7 @@ const SignUp = () => {
       console.log(error);
       notify("Error", "Error al enviar el correo, intente nuevamente.");
     } finally {
-      hideLoader();
+      toggleLoader(false);
     }
   };
 

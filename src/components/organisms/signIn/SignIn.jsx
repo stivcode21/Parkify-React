@@ -6,13 +6,16 @@ import { useNotification } from "@/components/templates/notificationProvider/not
 import { EyeClosedIcon, EyeIcon } from "lucide-react";
 import bcrypt from "bcryptjs";
 import { supabase } from "@/supabase/supabase";
+import { useLoader } from "@/context/loaderProvider/LoaderProvider";
 
 const SignIn = () => {
   const [correo, setCorreo] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [sent, setSent] = useState(false);
   const notify = useNotification();
   const navigate = useNavigate();
+  const { toggleLoader } = useLoader();
 
   const validateForm = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -39,6 +42,7 @@ const SignIn = () => {
     if (!validateForm()) return;
 
     try {
+      toggleLoader(true);
       //Verificar existencia de usuario
       const { data: user, error } = await supabase
         .from("admins")
@@ -75,11 +79,14 @@ const SignIn = () => {
         "Success",
         "Usuario válido. Hemos enviado un enlace de verificación a tu correo. Revísalo para continuar."
       );
+      setSent(true);
       setCorreo("");
       setPassword("");
     } catch (error) {
       console.error("Error en inicio de sesión:", error);
       notify("Error", "Ha ocurrido un error inesperado.");
+    } finally {
+      toggleLoader(false);
     }
   };
 
@@ -127,7 +134,13 @@ const SignIn = () => {
         </div>
 
         <div className={styles.button}>
-          <Button name="Acceder" />
+          {sent ? (
+            <p className={styles.successMessage}>
+              Hemos enviado un enlace de verificación a tu correo.
+            </p>
+          ) : (
+            <Button name="Acceder" />
+          )}
         </div>
         <span className={styles.link} onClick={() => navigate("/signUp")}>
           Crear un perfil

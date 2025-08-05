@@ -8,14 +8,17 @@ import useCalculoPago from "@/hooks/useCalculoPago";
 import TicketBill from "@/components/molecules/ticketBill/TicketBill";
 import { useNotification } from "@/components/templates/notificationProvider/notificationProvider";
 import { supabase } from "@/supabase/supabase";
+import { useLoader } from "@/context/loaderProvider/LoaderProvider";
 
 const VehicleList = () => {
   const [vehiculos, setVehiculos] = useState([]);
   const [selected, setSelected] = useState(null);
+  const { toggleLoader } = useLoader();
   const notify = useNotification();
 
   useEffect(() => {
     const fetchVehiculos = async () => {
+      toggleLoader(true);
       // Obtener el usuario autenticado
       const {
         data: { user },
@@ -46,6 +49,7 @@ const VehicleList = () => {
       } else {
         setVehiculos(dataVehicles);
       }
+      toggleLoader(false);
     };
 
     fetchVehiculos();
