@@ -2,13 +2,14 @@ import Button from "@/components/templates/button/Button";
 import styles from "./SignUp.module.css";
 import { useState } from "react";
 import { useNotification } from "@/components/templates/notificationProvider/notificationProvider";
-import { useNavigate } from "react-router-dom";
 import { supabase } from "@/supabase/supabase";
+import { useLoader } from "@/context/loaderProvider/LoaderProvider";
 
 const SignUp = () => {
   const [correo, setCorreo] = useState("");
+  const [sent, setSent] = useState(false);
   const notify = useNotification();
-  const navigate = useNavigate();
+  const { showLoader, hideLoader } = useLoader();
 
   const validateForm = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -32,11 +33,16 @@ const SignUp = () => {
     if (!validateForm()) return;
 
     try {
-      console.log(correo);
+      showLoader();
       await supabase.auth.signInWithOtp({
         email: correo,
       });
+
+      if (error) throw error;
+
       setCorreo("");
+      setSent(true);
+      hideLoader();
       notify("Success", "Correo enviado correctamente");
     } catch (error) {
       console.log(error);
@@ -64,7 +70,13 @@ const SignUp = () => {
         />
 
         <div className={styles.button}>
-          <Button name="Acceder" />
+          {sent ? (
+            <p className={styles.successMessage}>
+              ✅ Correo enviado. Revisa tu bandeja de entrada.
+            </p>
+          ) : (
+            <Button name="Enviar Correo" />
+          )}
         </div>
       </form>
     </>
