@@ -1,3 +1,4 @@
+// LoaderProvider.jsx
 import { createContext, useContext, useState } from "react";
 import styles from "./LoaderProvider.module.css";
 
@@ -6,15 +7,14 @@ const LoaderContext = createContext();
 export const LoaderProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
 
-  const showLoader = () => setLoading(true);
-  const hideLoader = () => setLoading(false);
+  const toggleLoader = (state) => setLoading(state);
 
   return (
-    <LoaderContext.Provider value={{ showLoader, hideLoader }}>
+    <LoaderContext.Provider value={{ toggleLoader }}>
       {children}
       {loading && (
-        <div className="loaderOverlay">
-          <span class="loader"></span>
+        <div className={styles.loaderOverlay}>
+          <div className={styles.loader}></div>
         </div>
       )}
     </LoaderContext.Provider>
