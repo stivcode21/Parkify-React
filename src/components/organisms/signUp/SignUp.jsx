@@ -34,7 +34,8 @@ const SignUp = () => {
 
     try {
       showLoader();
-      await supabase.auth.signInWithOtp({
+
+      const { error } = await supabase.auth.signInWithOtp({
         email: correo,
       });
 
@@ -42,11 +43,12 @@ const SignUp = () => {
 
       setCorreo("");
       setSent(true);
-      hideLoader();
       notify("Success", "Correo enviado correctamente");
     } catch (error) {
       console.log(error);
       notify("Error", "Error al enviar el correo, intente nuevamente.");
+    } finally {
+      hideLoader();
     }
   };
 
