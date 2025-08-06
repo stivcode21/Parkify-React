@@ -151,6 +151,7 @@ const VehicleExit = () => {
                 onChange={(e) => setPlaca(e.target.value)}
                 maxLength={6}
                 id="placa"
+                autoFocus
               />
             </div>
             <ButtonSend name="Buscar" onClick={handleSubmit} />

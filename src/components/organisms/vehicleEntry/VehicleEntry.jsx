@@ -169,7 +169,6 @@ const VehicleEntry = () => {
             onChange={(e) => setCasillero(e.target.value)}
             id="casillero"
             maxLength={2}
-            autoFocus
           />
           <span className={styles.labelLocker}>N° Casillero</span>
         </div>
