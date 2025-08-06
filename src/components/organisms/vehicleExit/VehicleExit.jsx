@@ -1,7 +1,7 @@
 import styles from "./VehicleExit.module.css";
 import ParkifyLogo from "@/components/atoms/parkifyLogo/ParkifyLogo";
 import ButtonSend from "@/components/atoms/buttonSend/ButtonSend";
-import { useNotification } from "@/components/templates/notificationProvider/notificationProvider";
+import { useNotification } from "@/context/notificationProvider/notificationProvider";
 import { supabase } from "@/supabase/supabase";
 import useClickDateTime from "@/hooks/useClickDate";
 import useCalculoPago from "@/hooks/useCalculoPago";

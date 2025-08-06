@@ -1,7 +1,7 @@
 import Button from "@/components/templates/button/Button";
 import styles from "./SignUp.module.css";
 import { useState } from "react";
-import { useNotification } from "@/components/templates/notificationProvider/notificationProvider";
+import { useNotification } from "@/context/notificationProvider/notificationProvider";
 import { supabase } from "@/supabase/supabase";
 import { useLoader } from "@/context/loaderProvider/LoaderProvider";
 

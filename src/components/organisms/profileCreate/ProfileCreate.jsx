@@ -2,7 +2,7 @@ import { useState } from "react";
 import styles from "./ProfileCreate.module.css";
 import Button from "@/components/templates/button/Button";
 import { EyeClosedIcon, EyeIcon } from "lucide-react";
-import { useNotification } from "@/components/templates/notificationProvider/notificationProvider";
+import { useNotification } from "@/context/notificationProvider/notificationProvider";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/supabase/supabase";
 import bcrypt from "bcryptjs";

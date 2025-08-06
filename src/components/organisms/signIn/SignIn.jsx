@@ -2,7 +2,7 @@ import Button from "@/components/templates/button/Button";
 import styles from "./SignIn.module.css";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useNotification } from "@/components/templates/notificationProvider/notificationProvider";
+import { useNotification } from "@/context/notificationProvider/notificationProvider";
 import { EyeClosedIcon, EyeIcon } from "lucide-react";
 import bcrypt from "bcryptjs";
 import { supabase } from "@/supabase/supabase";

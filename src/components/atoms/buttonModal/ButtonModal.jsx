@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/supabase/supabase";
 import styles from "./ButtonModal.module.css";
 import useModalStore from "@/store/ModalStore";
-import { useNotification } from "@/components/templates/notificationProvider/notificationProvider";
+import { useNotification } from "@/context/notificationProvider/notificationProvider";
 
 const ButtonModal = ({ exit = false, name, component }) => {
   const { setModalContent } = useModalStore();

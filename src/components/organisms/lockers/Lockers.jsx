@@ -1,6 +1,6 @@
 import Locker from "@/components/templates/locker/Locker";
 import styles from "./Lockers.module.css";
-import { useNotification } from "@/components/templates/notificationProvider/notificationProvider";
+import { useNotification } from "@/context/notificationProvider/notificationProvider";
 import { supabase } from "@/supabase/supabase";
 import { useEffect, useState } from "react";
 import { useLoader } from "@/context/loaderProvider/LoaderProvider";

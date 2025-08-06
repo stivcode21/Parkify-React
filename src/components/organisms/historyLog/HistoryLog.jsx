@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./HistoryLog.module.css";
 import RowListVehicles from "@/components/molecules/rowListVehicles/RowListVehicles";
 import ParkifyLogo from "@/components/atoms/parkifyLogo/ParkifyLogo";
-import { useNotification } from "@/components/templates/notificationProvider/notificationProvider";
+import { useNotification } from "@/context/notificationProvider/notificationProvider";
 import { supabase } from "@/supabase/supabase";
 import { useLoader } from "@/context/loaderProvider/LoaderProvider";
 

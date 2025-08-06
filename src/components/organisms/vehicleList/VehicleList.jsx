@@ -6,7 +6,7 @@ import RowListVehicles from "@/components/molecules/rowListVehicles/RowListVehic
 import useTiempoTranscurrido from "@/hooks/useTiempoTranscurrido";
 import useCalculoPago from "@/hooks/useCalculoPago";
 import TicketBill from "@/components/molecules/ticketBill/TicketBill";
-import { useNotification } from "@/components/templates/notificationProvider/notificationProvider";
+import { useNotification } from "@/context/notificationProvider/notificationProvider";
 import { supabase } from "@/supabase/supabase";
 import { useLoader } from "@/context/loaderProvider/LoaderProvider";
 
