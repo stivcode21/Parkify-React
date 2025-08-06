@@ -2,7 +2,7 @@ import { useState } from "react";
 import styles from "./VehicleEntry.module.css";
 import ParkifyLogo from "@/components/atoms/parkifyLogo/ParkifyLogo";
 import ButtonSend from "@/components/atoms/buttonSend/ButtonSend";
-import { useNotification } from "@/components/templates/notificationProvider/notificationProvider";
+import { useNotification } from "@/context/notificationProvider/notificationProvider";
 import { supabase } from "@/supabase/supabase";
 import useClickDateTime from "@/hooks/useClickDate";
 import { useLoader } from "@/context/loaderProvider/LoaderProvider";
@@ -157,6 +157,7 @@ const VehicleEntry = () => {
             maxLength={6}
             onChange={(e) => setPlaca(e.target.value)}
             id="placa"
+            autoFocus
           />
         </div>
 
@@ -168,6 +169,7 @@ const VehicleEntry = () => {
             onChange={(e) => setCasillero(e.target.value)}
             id="casillero"
             maxLength={2}
+            autoFocus
           />
           <span className={styles.labelLocker}>N° Casillero</span>
         </div>
