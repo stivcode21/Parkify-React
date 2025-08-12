@@ -66,6 +66,7 @@ Estoy muy satisfecho de haber transformado un simple diseño en una app **real, 
 ## ▫️Tools
 
    <img src="https://skillicons.dev/icons?i=react,supabase,css,vite,cercel" />
+<img src="https://img.shields.io/badge/Zustand-764ABC?style=for-the-badge&logo=zustand&logoColor=white" />
    
 ---
 
