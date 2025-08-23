@@ -2,6 +2,7 @@
   <img src="https://i.ibb.co/n8L9f8k4/PARKIFY-1.webp" alt="Parkify Preview" width="700" height="500" />
 </p>
 
+
 <div align="center">
   <img src="https://readme-typing-svg.herokuapp.com/?font=Chela%20One&size=55&center=true&vCenter=true&width=500&height=70&duration=4000&lines=Parkify;&color=fff;" />
 </div>
