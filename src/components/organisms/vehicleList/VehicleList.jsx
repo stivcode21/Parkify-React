@@ -60,7 +60,7 @@ const VehicleList = () => {
   const valorAPagar = useCalculoPago(vehicleSelected?.fecha_entrada);
 
   return (
-    <>
+    <div className={styles.box}>
       <ParkifyLogov2 />
       <h2 className={styles.title}>Lista de Vehículos</h2>
       <CounterVehicles vehicles={vehiculos} />
@@ -98,7 +98,7 @@ const VehicleList = () => {
           />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
