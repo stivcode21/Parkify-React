@@ -1,7 +1,8 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  gap: 40px;
+  padding-bottom: 30px;
   justify-content: center;
   align-items: center;
   margin-top: 50px;
@@ -9,7 +10,7 @@
 
 .title {
   color: #fff;
-  font-size: 2rem;
+  font-size: 1.8rem;
   text-align: center;
   text-transform: uppercase;
   font-weight: bold;
@@ -24,6 +25,7 @@
 
 .label {
   font-size: 1.3rem;
+  font-weight: 600;
   color: #fff;
   display: flex;
   gap: 5px;
@@ -34,13 +36,23 @@ input[type="radio"] {
   height: 20px;
 }
 
+.label:hover {
+  cursor: pointer;
+  color: #007fff;
+}
+
+.vehicleState {
+  color: #007fff;
+}
+
 .input {
   background-color: #2d2d2d;
   border: none;
   width: 200px;
   border-radius: 14px;
-  padding: 14px 10px;
+  padding: 12px 10px;
   color: #007fff;
+  outline: 1px solid #000000;
   font-weight: bold;
   text-align: center;
   text-transform: uppercase;
@@ -56,7 +68,7 @@ input[type="radio"] {
 }
 
 .labelPlaca {
-  color: #fff;
+  color: #ffffff;
   font-size: 1.2rem;
   font-weight: bold;
 }
@@ -69,16 +81,16 @@ input[type="radio"] {
 }
 
 .inputLocker {
-  background-color: #2d2d2d;
-  border: none;
-  width: 60px;
-  border-radius: 14px;
-  padding: 14px 0;
+  border-bottom: 2px solid #007fff;
+  background: transparent;
+  padding: none;
+  outline: none;
+  width: 40px;
+  height: fit-content;
+  border-radius: 2px;
   color: #007fff;
-  font-weight: bold;
-  text-align: center;
   text-transform: uppercase;
-  font-size: 1.7rem;
+  font-size: 1rem;
 }
 
 .labelLocker {
@@ -88,5 +100,9 @@ input[type="radio"] {
 }
 
 .input:focus {
-  border-color: #007fff;
+  outline: 1px solid #007fff;
+}
+
+.inputLocker:focus {
+  outline: none;
 }

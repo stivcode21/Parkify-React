@@ -129,22 +129,32 @@ const VehicleEntry = () => {
             <input
               type="radio"
               name="vehiculo"
+              className={styles.inputRadio}
               value="moto"
               checked={vehiculo === "moto"}
               onChange={(e) => setVehiculo(e.target.value)}
             />
-            <span>Moto</span>
+            <span
+              className={`${vehiculo === "moto" ? styles.vehicleState : ""}`}
+            >
+              Moto
+            </span>
           </label>
 
           <label className={styles.label}>
             <input
               type="radio"
               name="vehiculo"
+              className={styles.inputRadio}
               value="carro"
               checked={vehiculo === "carro"}
               onChange={(e) => setVehiculo(e.target.value)}
             />
-            <span>Carro</span>
+            <span
+              className={`${vehiculo === "carro" ? styles.vehicleState : ""}`}
+            >
+              Carro
+            </span>
           </label>
         </form>
 
@@ -155,6 +165,8 @@ const VehicleEntry = () => {
             type="text"
             value={placa}
             maxLength={6}
+            placeholder="_ _ _"
+            autoComplete="off"
             onChange={(e) => setPlaca(e.target.value)}
             id="placa"
             autoFocus
@@ -166,11 +178,13 @@ const VehicleEntry = () => {
             className={`${styles.input} ${styles.inputLocker}`}
             type="text"
             value={casillero}
+            placeholder="00"
+            autoComplete="off"
             onChange={(e) => setCasillero(e.target.value)}
             id="casillero"
             maxLength={2}
           />
-          <span className={styles.labelLocker}>N° Casillero</span>
+          <span className={styles.labelLocker}> Casillero</span>
         </div>
         <ButtonSend name="Ingresar" onClick={handleSubmit} />
       </div>
