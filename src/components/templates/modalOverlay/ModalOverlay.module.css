@@ -49,10 +49,8 @@
 
 @media (width <= 900px) {
   .modal {
-    width: 90%;
+    padding: 0 10px;
+    width: fit-content;
     min-width: 200px;
-  }
-  .content {
-    padding: 10px;
   }
 }
