@@ -1,4 +1,4 @@
-import LogoParkify from "@/components/atoms/logoParkify/LogoParkify";
+import MainParkifyLogo from "@/components/atoms/mainParkifyLogo/MainParkifyLogo";
 import styles from "./Dashboard.module.css";
 import Reloj from "@/components/molecules/reloj/Reloj";
 import ActuallyDate from "@/components/molecules/actuallyDate/ActuallyDate";
@@ -25,7 +25,7 @@ const Dashboard = () => {
           <Reloj />
         </header>
 
-        <LogoParkify />
+        <MainParkifyLogo />
         <img src="/auto.svg" alt="auto-icon" className={styles.auto} />
 
         <BoxButtons />

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./HistoryLog.module.css";
 import RowListVehicles from "@/components/molecules/rowListVehicles/RowListVehicles";
-import ParkifyLogo from "@/components/atoms/parkifyLogo/ParkifyLogo";
+import ParkifyLogov2 from "@/components/atoms/parkifyLogov2/ParkifyLogov2";
 import { useNotification } from "@/context/notificationProvider/notificationProvider";
 import { supabase } from "@/supabase/supabase";
 import { useLoader } from "@/context/loaderProvider/LoaderProvider";
@@ -46,7 +46,7 @@ const HistoryLog = () => {
 
   return (
     <>
-      <ParkifyLogo />
+      <ParkifyLogov2 />
       <h2 className={styles.title}>Historial de registro</h2>
       <div className={styles.container}>
         <div className={styles.column1}>

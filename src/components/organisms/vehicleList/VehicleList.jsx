@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./VehicleList.module.css";
-import ParkifyLogo from "@/components/atoms/parkifyLogo/ParkifyLogo";
+import ParkifyLogov2 from "@/components/atoms/parkifyLogov2/ParkifyLogov2";
 import CounterVehicles from "@/components/molecules/counterVehicles/CounterVehicles";
 import RowListVehicles from "@/components/molecules/rowListVehicles/RowListVehicles";
 import useTiempoTranscurrido from "@/hooks/useTiempoTranscurrido";
@@ -61,7 +61,7 @@ const VehicleList = () => {
 
   return (
     <>
-      <ParkifyLogo />
+      <ParkifyLogov2 />
       <h2 className={styles.title}>Lista de Vehículos</h2>
       <CounterVehicles vehicles={vehiculos} />
       <div className={styles.container}>

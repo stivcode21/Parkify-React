@@ -1,6 +1,6 @@
 import { MapPin, PhoneCall } from "lucide-react";
 import styles from "./LayoutLogin.module.css";
-import LogoParkify from "@/components/atoms/logoParkify/LogoParkify";
+import MainParkifyLogo from "@/components/atoms/mainParkifyLogo/MainParkifyLogo";
 
 const LayoutLogin = ({ children }) => {
   return (
@@ -10,7 +10,7 @@ const LayoutLogin = ({ children }) => {
 
         <div className={styles.rightPanel}>
           <h2 className={styles.welcomeText}>Bienvenidos a</h2>
-          <LogoParkify />
+          <MainParkifyLogo />
           <p className={styles.subtitle}>Sistema de gestion parqueadero</p>
 
           <div className={styles.info}>

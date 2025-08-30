@@ -1,6 +1,6 @@
 import Button from "@/components/templates/button/Button";
 import styles from "./WelcomePage.module.css";
-import LogoParkify from "@/components/atoms/logoParkify/LogoParkify";
+import MainParkifyLogo from "@/components/atoms/mainParkifyLogo/MainParkifyLogo";
 import { useNavigate } from "react-router-dom";
 
 const WelcomePage = () => {
@@ -12,7 +12,7 @@ const WelcomePage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.containerTitle}>
-        <LogoParkify />
+        <MainParkifyLogo />
       </div>
       <img src="/bgAutos.png" alt="background" className={styles.cars} />
       <div className={styles.button}>

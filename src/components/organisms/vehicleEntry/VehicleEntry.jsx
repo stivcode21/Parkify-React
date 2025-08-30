@@ -1,11 +1,11 @@
 import { useState } from "react";
 import styles from "./VehicleEntry.module.css";
-import ParkifyLogo from "@/components/atoms/parkifyLogo/ParkifyLogo";
 import ButtonSend from "@/components/atoms/buttonSend/ButtonSend";
 import { useNotification } from "@/context/notificationProvider/notificationProvider";
 import { supabase } from "@/supabase/supabase";
 import useClickDateTime from "@/hooks/useClickDate";
 import { useLoader } from "@/context/loaderProvider/LoaderProvider";
+import ParkifyLogov2 from "@/components/atoms/parkifyLogov2/ParkifyLogov2";
 
 const VehicleEntry = () => {
   const [vehiculo, setVehiculo] = useState("");
@@ -121,7 +121,7 @@ const VehicleEntry = () => {
 
   return (
     <>
-      <ParkifyLogo />
+      <ParkifyLogov2 />
       <h2 className={styles.title}>Ingreso de Vehículos</h2>
       <div className={styles.container}>
         <form className={styles.form} onSubmit={handleSubmit}>
