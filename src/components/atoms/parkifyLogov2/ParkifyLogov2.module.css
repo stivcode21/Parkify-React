@@ -16,6 +16,6 @@
 /* MEDIA QUERIES */
 @media (width <= 768px) {
   .title {
-    font-size: 2rem;
+    font-size: 3rem;
   }
 }
