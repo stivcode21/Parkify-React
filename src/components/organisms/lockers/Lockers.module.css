@@ -1,13 +1,19 @@
 .lockers {
   display: grid;
+  width: 80vw;
+  height: 80vh;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Ajustable */
   gap: 8px;
-  margin-top: 40px;
+  margin-top: 10px;
+  margin-right: 10px;
+  padding-bottom: 10px;
 }
 
 @media (width <= 764px) {
   .lockers {
+    width: 90vw;
+    margin-left: -20px;
     gap: 5px;
-    margin-left: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); /* Ajustable */
   }
 }

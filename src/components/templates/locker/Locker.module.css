@@ -1,6 +1,6 @@
 .locker {
-  width: 120px;
-  height: 170px;
+  width: 115px;
+  height: 140px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -89,4 +89,10 @@
   font-size: 20px;
   font-weight: 800;
   color: #fff;
+}
+
+@media (width <= 764px) {
+  .locker {
+    scale: 0.8;
+  }
 }
