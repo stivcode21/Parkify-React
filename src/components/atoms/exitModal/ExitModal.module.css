@@ -16,8 +16,8 @@
   cursor: pointer;
 }
 
-.closeButton:active {
-  scale: 0.9;
+.closeButton:hover svg {
+  scale: 1.1;
   transition: all 0.1s ease-in-out;
 }
 
