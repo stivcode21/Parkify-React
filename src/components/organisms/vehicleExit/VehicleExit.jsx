@@ -148,6 +148,7 @@ const VehicleExit = () => {
                 className={styles.input}
                 type="text"
                 value={placa}
+                placeholder="_ _ _"
                 onChange={(e) => setPlaca(e.target.value)}
                 maxLength={6}
                 id="placa"
