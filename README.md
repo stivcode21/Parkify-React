@@ -16,7 +16,7 @@
 
 ## ▫️Objetivos
 
-El objetivo de **Parkify** fue crear una solución digital completa que permitiera gestionar parqueaderos de forma **intuitiva y segura**, directamente desde el navegador.
+El objetivo de **Parkify** fue crear una solución digital completa que permitiera gestionar parqueaderos de forma **intuitiva y segura**, directamente desde  el navegador.
 
 Con esta app, me propuse desarrollar una plataforma con funcionalidades como:
 
