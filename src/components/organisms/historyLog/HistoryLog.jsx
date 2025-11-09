@@ -3,7 +3,7 @@ import styles from "./HistoryLog.module.css";
 import RowListVehicles from "@/components/molecules/rowListVehicles/RowListVehicles";
 import ParkifyLogov2 from "@/components/atoms/parkifyLogov2/ParkifyLogov2";
 import { useNotification } from "@/context/notificationProvider/notificationProvider";
-import { supabase } from "@/supabase/supabase";
+import { formatDateTime } from "@/utils/formatDate";
 import { useLoader } from "@/context/loaderProvider/LoaderProvider";
 
 const HistoryLog = () => {
@@ -15,34 +15,28 @@ const HistoryLog = () => {
   useEffect(() => {
     const fetchVehiculos = async () => {
       toggleLoader(true);
-      // Obtener el usuario autenticado
-      const {
-        data: { user },
-        error: userError,
-      } = await supabase.auth.getUser();
-
-      if (userError || !user) {
-        notify("Error", "No se pudo obtener el usuario autenticado.");
-        return;
-      }
-
-      // Consultar la tabla 'vehiculo' para obtener los vehículos del usuario
-      const { data: dataVehicles, error: errorVehicles } = await supabase
-        .from("historial")
-        .select("*")
-        .eq("id_user", user.id);
-
-      if (errorVehicles) {
-        notify("Error", "Error al obtener vehículos");
+      try {
+        const res = await fetch("http://localhost:3000/api/vehicles/records", {
+          method: "GET",
+          credentials: "include",
+        });
+        if (!res.ok) {
+          notify("Error", "No se pudieron obtener los vehículos.");
+          return;
+        }
+        const data = await res.json();
+        setVehiculos(data.vehicles);
+      } catch (error) {
         console.error("Error al obtener vehículos:", error);
-      } else {
-        setVehiculos(dataVehicles);
+        notify("Error", "Error al obtener los vehículos.");
       }
       toggleLoader(false);
     };
 
     fetchVehiculos();
   }, []);
+
+  console.log("Vehículos en estado de historial:", vehiculos);
 
   return (
     <>
@@ -63,14 +57,14 @@ const HistoryLog = () => {
             <tbody>
               {vehiculos.map((vehicle, index) => (
                 <RowListVehicles
-                  selected={selected}
-                  setSelected={setSelected}
+                  // selected={selected}
+                  // setSelected={setSelected}
                   history={true}
                   placaID={vehicle.placa}
                   vehiculo={vehicle.tipo}
-                  fecha={vehicle.fechaEntrada}
-                  salida={vehicle.fechaSalida}
-                  pago={vehicle.pago}
+                  fecha={formatDateTime(vehicle.fecha_entrada)}
+                  salida={formatDateTime(vehicle.fecha_salida)}
+                  pago={vehicle.monto_total}
                   key={index}
                 />
               ))}
