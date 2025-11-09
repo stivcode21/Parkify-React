@@ -2,13 +2,12 @@ import styles from "./VehicleExit.module.css";
 import ParkifyLogov2 from "@/components/atoms/parkifyLogov2/ParkifyLogov2";
 import ButtonSend from "@/components/atoms/buttonSend/ButtonSend";
 import { useNotification } from "@/context/notificationProvider/notificationProvider";
-import { supabase } from "@/supabase/supabase";
-import useClickDateTime from "@/hooks/useClickDate";
-import useCalculoPago from "@/hooks/useCalculoPago";
 import TicketBill from "@/components/molecules/ticketBill/TicketBill";
-import useTiempoTranscurrido from "@/hooks/useTiempoTranscurrido";
 import { useState } from "react";
 import { useLoader } from "@/context/loaderProvider/LoaderProvider";
+import { getElapsedTime } from "@/utils/getElapsedTime";
+import { formatDateTime } from "@/utils/formatDate";
+import { calculatePayment } from "@/utils/calculatePayment";
 
 const VehicleExit = () => {
   const [dataVehiculo, setDataVehiculo] = useState(null);
@@ -16,11 +15,14 @@ const VehicleExit = () => {
   const [ticketBill, setTicketBill] = useState(false);
   const { toggleLoader } = useLoader();
   const notify = useNotification();
-  const captureDate = useClickDateTime();
 
-  const fechaActual = captureDate();
-  const valorAPagar = useCalculoPago(dataVehiculo?.fecha_entrada);
-  const tiempoPasado = useTiempoTranscurrido(dataVehiculo?.fecha_entrada);
+  const tiempoPasado = getElapsedTime(
+    formatDateTime(dataVehiculo?.fecha_entrada)
+  );
+  const valorAPagar = calculatePayment(
+    formatDateTime(dataVehiculo?.fecha_entrada)
+  );
+  console.log("Tiempo pasado:", valorAPagar);
 
   const validateForm = () => {
     if (placa.trim().length !== 6) {
@@ -36,30 +38,25 @@ const VehicleExit = () => {
 
     try {
       toggleLoader(true);
-      // Obtener el usuario autenticado
-      const {
-        data: { user },
-        error: userError,
-      } = await supabase.auth.getUser();
+      const res = await fetch("http://localhost:3000/api/vehicles/search", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          placa: placa.toUpperCase(),
+        }),
+      });
 
-      if (userError || !user) {
-        notify("Error", "No se pudo obtener el usuario autenticado.");
+      const data = await res.json();
+
+      if (!res.ok) {
+        notify("Error", data.message || "Error al Buscar el vehículo.");
         return;
       }
+      setDataVehiculo(data.vehicle);
 
-      const { data: dataVehicle, error } = await supabase
-        .from("vehiculo")
-        .select("*")
-        .eq("placa", placa.toUpperCase())
-        .eq("id_user", user.id)
-        .single();
-
-      if (error || !dataVehicle) {
-        notify("Warning", "Vehículo no encontrado.");
-        return;
-      }
-
-      setDataVehiculo(dataVehicle);
       setTicketBill(true);
       setPlaca("");
     } catch (err) {
@@ -71,56 +68,36 @@ const VehicleExit = () => {
   };
 
   const handleExitVehicle = async () => {
-    const {
-      data: { user },
-      error: userError,
-    } = await supabase.auth.getUser();
-
-    if (userError || !user) {
-      notify("Error", "No se pudo obtener el usuario autenticado.");
-      return;
-    }
-
     try {
-      //  Insertar en historial
-      const { error: insertError } = await supabase.from("historial").insert({
-        placa: dataVehiculo.placa,
-        tipo: dataVehiculo.tipo,
-        fechaEntrada: dataVehiculo.fecha_entrada,
-        fechaSalida: fechaActual,
-        pago: valorAPagar,
-        id_user: user.id,
+      toggleLoader(true);
+      const res = await fetch("http://localhost:3000/api/vehicles/exit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          placa: dataVehiculo.placa,
+          total: valorAPagar,
+        }),
       });
 
-      if (insertError) throw insertError;
+      const data = await res.json();
 
-      // Liberar casillero
-      const { error: lockerError } = await supabase
-        .from("casilleros")
-        .update({
-          placa: null,
-          estado: false,
-        })
-        .eq("placa", dataVehiculo.placa)
-        .eq("id_user", user.id);
-
-      if (lockerError) throw lockerError;
-
-      // Eliminar vehículo
-      const { error: deleteError } = await supabase
-        .from("vehiculo")
-        .delete()
-        .eq("placa", dataVehiculo.placa)
-        .eq("id_user", user.id);
-
-      if (deleteError) throw deleteError;
+      if (!res.ok) {
+        notify("Error", data.message || "Error al registrar el vehículo.");
+        return;
+      }
 
       notify("Success", "Vehículo dado de salida correctamente.");
-      setDataVehiculo(null);
       setTicketBill(false);
-    } catch (error) {
-      console.error("Error al procesar la salida:", error);
-      notify("Error", "Ocurrió un error al procesar la salida.");
+      setDataVehiculo(null);
+      setPlaca("");
+    } catch (err) {
+      console.error(err);
+      notify("Error", "Error al buscar el vehículo.");
+    } finally {
+      toggleLoader(false);
     }
   };
 
@@ -133,7 +110,7 @@ const VehicleExit = () => {
           <div className={styles.column1}>
             <TicketBill
               selected={dataVehiculo?.placa}
-              tiempoPasado={tiempoPasado}
+              tiempoPasado={tiempoPasado.texto}
               valorAPagar={valorAPagar}
             />
             <div className={styles.containerButton}>
