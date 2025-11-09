@@ -1,12 +1,11 @@
 import Button from "@/components/templates/button/Button";
 import styles from "./SignIn.module.css";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNotification } from "@/context/notificationProvider/notificationProvider";
 import { EyeClosedIcon, EyeIcon } from "lucide-react";
-import bcrypt from "bcryptjs";
-import { supabase } from "@/supabase/supabase";
 import { useLoader } from "@/context/loaderProvider/LoaderProvider";
+import { checkAuth } from "@/utils/auth";
 
 const SignIn = () => {
   const [correo, setCorreo] = useState("");
@@ -37,51 +36,37 @@ const SignIn = () => {
     return true;
   };
 
+  useEffect(() => {
+    const verifySession = async () => {
+      const loggedIn = await checkAuth();
+      if (loggedIn) {
+        navigate("/dashboard"); // redirige si ya tiene cookie válida
+      }
+    };
+    verifySession();
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
 
     try {
       toggleLoader(true);
-      //Verificar existencia de usuario
-      const { data: user, error } = await supabase
-        .from("admins")
-        .select("*")
-        .eq("email", correo)
-        .single();
-
-      if (error || !user) {
-        notify("Error", "Correo no registrado.");
-        return;
-      }
-
-      // Verificar contraseña
-      const isMatch = await bcrypt.compare(password, user.password);
-      if (!isMatch) {
-        notify("Error", "Contraseña incorrecta.");
-        return;
-      }
-
-      // Enviar Link solo si la autenticación es válida
-      const { error: otpError } = await supabase.auth.signInWithOtp({
-        email: correo,
-        options: {
-          shouldCreateUser: false,
-        },
+      const res = await fetch("http://localhost:3000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include", // importante para que guarde la cookie
+        body: JSON.stringify({ email: correo, password }),
       });
 
-      if (otpError) {
-        notify("Error", "No se pudo enviar el enlace de acceso.");
+      const data = await res.json();
+      if (!res.ok) {
+        notify("Error", data.message);
         return;
       }
 
-      notify(
-        "Success",
-        "Usuario válido. Hemos enviado un enlace de verificación a tu correo. Revísalo para continuar."
-      );
-      setSent(true);
-      setCorreo("");
-      setPassword("");
+      notify("Success", data.message);
+      navigate("/dashboard");
     } catch (error) {
       console.error("Error en inicio de sesión:", error);
       notify("Error", "Ha ocurrido un error inesperado.");
@@ -134,17 +119,11 @@ const SignIn = () => {
         </div>
 
         <div className={styles.button}>
-          {sent ? (
-            <p className={styles.successMessage}>
-              Hemos enviado un enlace de verificación a tu correo.
-            </p>
-          ) : (
-            <Button name="Acceder" />
-          )}
+          <Button name="Acceder" />
         </div>
-        <span className={styles.link} onClick={() => navigate("/signUp")}>
+        {/* <span className={styles.link} onClick={() => navigate("/signUp")}>
           Crear un perfil
-        </span>
+        </span> */}
       </form>
     </>
   );
