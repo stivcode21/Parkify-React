@@ -2,8 +2,6 @@ import { useState } from "react";
 import styles from "./VehicleEntry.module.css";
 import ButtonSend from "@/components/atoms/buttonSend/ButtonSend";
 import { useNotification } from "@/context/notificationProvider/notificationProvider";
-import { supabase } from "@/supabase/supabase";
-import useClickDateTime from "@/hooks/useClickDate";
 import { useLoader } from "@/context/loaderProvider/LoaderProvider";
 import ParkifyLogov2 from "@/components/atoms/parkifyLogov2/ParkifyLogov2";
 
@@ -13,7 +11,6 @@ const VehicleEntry = () => {
   const [casillero, setCasillero] = useState("");
   const { toggleLoader } = useLoader();
   const notify = useNotification();
-  const captureDate = useClickDateTime();
 
   const validateForm = () => {
     const inputPlaca = document.getElementById("placa");
@@ -43,77 +40,39 @@ const VehicleEntry = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-    const fecha = captureDate();
 
     try {
       toggleLoader(true);
-      // Obtener el usuario
-      const {
-        data: { user },
-        error: userError,
-      } = await supabase.auth.getUser();
 
-      if (userError || !user) {
-        notify("Error", "No se pudo obtener el usuario autenticado.");
-        return;
-      }
-
-      // Insertar en la tabla 'vehiculos'
-      const { error: insertError } = await supabase.from("vehiculo").insert({
-        placa: placa.toUpperCase(),
-        tipo: vehiculo,
-        fecha_entrada: fecha,
-        id_user: user.id,
+      const res = await fetch("http://localhost:3000/api/vehicles/entry", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          placa: placa.toUpperCase(),
+          tipo: vehiculo,
+          numeroLocker: casillero || null,
+        }),
       });
 
-      //validar si el casillero existe y esta libre solo si se ingreso un casillero
-      if (casillero.trim()) {
-        const { data } = await supabase
-          .from("casilleros")
-          .select("*")
-          .eq("id_locker", casillero)
-          .eq("estado", false)
-          .eq("id_user", user.id)
-          .single();
+      const data = await res.json();
 
-        // Si el casillero existe y está libre, actualizarlo
-        if (data) {
-          const { error: lockerError } = await supabase
-            .from("casilleros")
-            .update({
-              placa: placa.toUpperCase(),
-              estado: true,
-            })
-            .eq("id_locker", casillero)
-            .eq("id_user", user.id);
-
-          if (lockerError) {
-            console.error("Error al actualizar el casillero:", lockerError);
-          } else {
-            notify("Success", "Casillero asignado correctamente.");
-          }
-        } else {
-          notify("Info", "Casillero ya esta ocupado.");
-          return;
-        }
-      }
-
-      if (insertError) {
-        notify(
-          "Warning",
-          "Ocurrio un problema al ingresar el vehiculo, por favor intente nuevamente."
-        );
-        console.log(insertError);
+      if (!res.ok) {
+        notify("Error", data.message || "Error al registrar el vehículo.");
         return;
       }
 
+      notify("Success", data.message || "Vehículo ingresado correctamente.");
+
+      // ✅ Limpiar formulario
       setPlaca("");
       setVehiculo("");
       setCasillero("");
-      notify("Success", "Vehiculo ingresado correctamente.");
     } catch (error) {
-      notify("Error", "Error al guardar los datos, intente nuevamente.");
-      console.log(error);
+      console.error("Error al registrar vehículo:", error);
+      notify("Error", "Error de conexión con el servidor.");
     } finally {
       toggleLoader(false);
     }
