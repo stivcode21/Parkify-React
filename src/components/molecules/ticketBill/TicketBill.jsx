@@ -3,7 +3,7 @@ import styles from "./TicketBill.module.css";
 
 const TicketBill = ({ selected, tiempoPasado, valorAPagar }) => {
   return (
-    <>
+    <section className={styles.box}>
       <div className={styles.containerItems}>
         <span className={styles.label}>
           <CarFront />
@@ -27,7 +27,7 @@ const TicketBill = ({ selected, tiempoPasado, valorAPagar }) => {
         </span>
         <span className={styles.money}>{valorAPagar}</span>
       </div>
-    </>
+    </section>
   );
 };
 
