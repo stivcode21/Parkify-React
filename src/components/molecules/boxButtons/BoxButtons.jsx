@@ -11,8 +11,16 @@ const BoxButtons = () => {
     <div className={styles.box}>
       <ButtonModal name="Ingresar Vehiculos" component={<VehicleEntry />} />
       <ButtonModal name="Salida Vehiculos" component={<VehicleExit />} />
-      <ButtonModal name="Lista Vehiculos" component={<VehicleList />} />
-      <ButtonModal name="Historial" component={<HistoryLog />} />
+      <ButtonModal
+        name="Lista Vehiculos"
+        path="/list"
+        component={<VehicleList />}
+      />
+      <ButtonModal
+        name="Historial"
+        path="/history"
+        component={<HistoryLog />}
+      />
       <ButtonModal name="Casilleros" component={<Lockers />} />
       <ButtonModal name="Salir" exit={true} />
     </div>
