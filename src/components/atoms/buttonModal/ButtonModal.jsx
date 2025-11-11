@@ -4,26 +4,42 @@ import styles from "./ButtonModal.module.css";
 import useModalStore from "@/store/ModalStore";
 import { useNotification } from "@/context/notificationProvider/notificationProvider";
 
-const ButtonModal = ({ exit = false, name, component }) => {
+const ButtonModal = ({ exit = false, name, component, path = null }) => {
   const { setModalContent } = useModalStore();
   const navigate = useNavigate();
   const notify = useNotification();
 
   const handleClick = async () => {
-    if (exit) {
-      const { error } = await supabase.auth.signOut();
+    if (path && !exit) {
+      navigate(path);
+      return;
+    }
 
-      if (error) {
-        notify("Error", "No se pudo cerrar sesión.");
-        console.log(error);
-      } else {
-        notify("Success", "Sesión cerrada con éxito.");
-        navigate("/");
+    if (exit) {
+      try {
+        const res = await fetch("http://localhost:3000/api/auth/logout", {
+          method: "POST", // usamos POST para cerrar sesión
+          credentials: "include", // importante para que la cookie httpOnly se envíe
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          notify("Error", data.message || "No se pudo cerrar sesión.");
+          return;
+        }
+
+        notify("Success", data.message || "Sesión cerrada con éxito.");
+        navigate("/"); // redirige al inicio o login
+      } catch (error) {
+        console.error("Error en logout:", error);
+        notify("Error", "Ha ocurrido un error inesperado.");
       }
     } else {
       setModalContent(component);
     }
   };
+
   return (
     <button
       onClick={handleClick}
