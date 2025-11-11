@@ -1,26 +1,20 @@
+import { ArrowLeft } from "lucide-react";
 import styles from "./ExitModal.module.css";
 import useModalStore from "@/store/ModalStore";
+import { useNavigate } from "react-router-dom";
 
-const ExitModal = () => {
+const ExitModal = ({ route }) => {
   const { closeModal } = useModalStore();
+  const navigate = useNavigate();
+
+  const toggleExit = () => {
+    const isRoute = route !== undefined;
+    isRoute ? navigate(route) : closeModal();
+  };
 
   return (
-    <button className={styles.closeButton} onClick={closeModal}>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="lucide lucide-x-icon lucide-x"
-      >
-        <path d="M18 6 6 18" />
-        <path d="m6 6 12 12" />
-      </svg>
+    <button className={styles.closeButton} onClick={toggleExit}>
+      <ArrowLeft />
     </button>
   );
 };
