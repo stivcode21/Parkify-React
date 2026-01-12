@@ -11,7 +11,9 @@ const Locker = ({ number, placa, state }) => {
       <div className={`${styles.bars} ${styles.bars3}`}></div>
       <div className={styles.lock}></div>
       <div
-        className={`${styles.circle} ${state ? styles.busy : styles.active} `}
+        className={`${styles.circle} ${
+          state !== 0 ? styles.busy : styles.active
+        } `}
       ></div>
       <div className={styles.description}>
         <p className={styles.placa}>{placa}</p>
