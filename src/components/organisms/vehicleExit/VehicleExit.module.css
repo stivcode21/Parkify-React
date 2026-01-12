@@ -1,94 +1,94 @@
-.container {
-  height: fit-content;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-bottom: 30px;
-}
-
-.column1 {
-  background: linear-gradient(
-    10deg,
-    rgba(13, 13, 13, 1) 10%,
-    rgba(45, 45, 45, 1) 100%
-  );
-  border-radius: 10px;
-  border: 1px solid #777;
-  width: 100%;
-  height: 310px;
-  display: flex;
-  gap: 20px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: start;
-}
-
-.containerButton {
-  padding: 20px 0;
-}
-
-.column2 {
+.layout {
   display: flex;
   flex-direction: column;
-  gap: 70px;
-  align-items: center;
+  gap: 24px;
 }
 
 .title {
   color: #fff;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   text-align: center;
   text-transform: uppercase;
-  font-weight: bold;
-  margin-bottom: 30px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.body {
+  display: flex;
+  justify-content: center;
+}
+
+.ticketSection {
+  background: #151719;
+  border-radius: 12px;
+  border: 1px solid #2d2d2d;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.searchSection {
+  background: #151719;
+  border-radius: 12px;
+  border: 1px solid #2d2d2d;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  min-width: 320px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
 }
 
 .input {
   background-color: #2d2d2d;
   border: none;
-  width: 200px;
-  border-radius: 14px;
-  padding: 12px 10px;
+  width: 100%;
+  max-width: 240px;
+  border-radius: 12px;
+  padding: 10px 12px;
   color: #007fff;
   outline: 1px solid #000000;
   font-weight: bold;
   text-align: center;
   text-transform: uppercase;
-  font-size: 3rem;
+  font-size: 2.4rem;
+  letter-spacing: 0.08em;
 }
 
 .input:focus {
   outline: 1px solid #007fff;
 }
 
-.inputLocker:focus {
-  outline: none;
-}
-
-.containerPlaca {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
 .labelPlaca {
   color: #fff;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: bold;
 }
 
-@media (width <= 900px) {
-  .container {
-    flex-direction: column;
-    gap: 10px;
-    padding-bottom: 30px;
-  }
+.actions {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 8px;
+  border-top: 1px solid #2d2d2d;
 }
 
-@media (width <= 764px) {
-  .column1 {
+@media (width <= 900px) {
+  .title {
+    text-align: left;
+  }
+
+  .searchSection {
+    min-width: auto;
     width: 100%;
   }
 }

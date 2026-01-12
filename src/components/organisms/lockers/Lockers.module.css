@@ -1,19 +1,26 @@
-.lockers {
+.layout {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.grid {
   display: grid;
   width: 100%;
-  height: 100%;
-  overflow-y: auto;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Ajustable */
-  gap: 8px;
-  margin-top: 60px;
-  padding-bottom: 10px;
-  padding-left: 10px;
+  max-height: 520px;
+  overflow: auto;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+  padding: 20px;
+  background-color: #151719;
+  border: 1px solid #2d2d2d;
+  border-radius: 12px;
 }
 
 @media (width <= 764px) {
-  .lockers {
-    width: 90vw;
-    gap: 5px;
-    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); /* Ajustable */
+  .grid {
+    width: 100%;
+    gap: 8px;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
   }
 }

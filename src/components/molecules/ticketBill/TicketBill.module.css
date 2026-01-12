@@ -1,14 +1,23 @@
+.box {
+  width: 320px;
+  height: 400px;
+  background-color: #151719;
+  border-radius: 12px;
+  padding: 16px;
+}
+
 .placa {
   background-color: #0d0d0d;
   width: 200px;
-  height: 60px;
-  border-radius: 14px;
-  padding: 12px 10px;
+  height: 56px;
+  border-radius: 12px;
+  padding: 10px 12px;
   color: #ffffff;
   font-weight: 900;
   text-align: center;
   text-transform: uppercase;
-  font-size: 3rem;
+  font-size: 2.4rem;
+  letter-spacing: 0.08em;
 }
 
 .containerItems {
@@ -16,13 +25,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 5px;
-  margin-top: 10px;
+  gap: 8px;
+  margin-top: 12px;
 }
 
 .label {
   color: #ffffff;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: bold;
   text-transform: uppercase;
   display: flex;
@@ -37,7 +46,7 @@
 
 .time {
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: bold;
   color: #007fff;
 }
@@ -49,5 +58,5 @@
   color: #007fff;
   font-weight: 900;
   text-align: center;
-  font-size: 2rem;
+  font-size: 1.8rem;
 }

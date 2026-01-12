@@ -1,34 +1,81 @@
-.container {
+.layout {
   display: flex;
   flex-direction: column;
-  gap: 40px;
-  padding-bottom: 30px;
-  justify-content: center;
+  gap: 24px;
+}
+
+.body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.section {
+  background-color: #151719;
+  border: 1px solid #2d2d2d;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  margin-top: 50px;
+  justify-content: center;
+  min-height: 140px;
+  gap: 8px;
+}
+
+.sectionWide {
+  grid-column: 1 / -1;
+  min-height: 120px;
+}
+
+.sectionHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-align: center;
+}
+
+.sectionTitle {
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sectionHelp {
+  font-size: 0.82rem;
+  color: #eaeaea;
+  opacity: 0.8;
 }
 
 .title {
   color: #fff;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   text-align: center;
   text-transform: uppercase;
-  font-weight: bold;
+  font-weight: 700;
+  letter-spacing: 0.04em;
 }
 
-.form {
+.containerType {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 60px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 10px;
 }
 
 .label {
-  font-size: 1.3rem;
+  font-size: 1rem;
   font-weight: 600;
   color: #fff;
   display: flex;
-  gap: 5px;
+  gap: 10px;
 }
 
 input[type="radio"] {
@@ -48,15 +95,18 @@ input[type="radio"] {
 .input {
   background-color: #2d2d2d;
   border: none;
-  width: 200px;
-  border-radius: 14px;
-  padding: 12px 10px;
+  width: 100%;
+  max-width: 240px;
+  border-radius: 12px;
+  padding: 10px 12px;
   color: #007fff;
   outline: 1px solid #000000;
   font-weight: bold;
   text-align: center;
   text-transform: uppercase;
-  font-size: 3rem;
+  font-size: 2.4rem;
+  letter-spacing: 0.08em;
+  margin-top: 14px;
 }
 
 .containerPlaca {
@@ -64,26 +114,35 @@ input[type="radio"] {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 0px;
 }
 
 .labelPlaca {
   color: #ffffff;
-  font-size: 1.2rem;
+  font-size: 0.95rem;
   font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.inputHelp {
+  font-size: 0.82rem;
+  color: #eaeaea;
+  opacity: 0.8;
 }
 
 .containerLocker {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 15px;
+  gap: 8px;
 }
 
 .inputLocker {
   border-bottom: 2px solid #007fff;
   background: transparent;
-  padding: none;
+  padding: 2px 0;
   outline: none;
   width: 40px;
   height: fit-content;
@@ -91,12 +150,35 @@ input[type="radio"] {
   color: #007fff;
   text-transform: uppercase;
   font-size: 1rem;
+  text-align: center;
 }
 
 .labelLocker {
   color: #fff;
-  font-size: 1.3rem;
+  font-size: 0.95rem;
   font-weight: bold;
+}
+
+.sectionIcon {
+  width: 16px;
+  height: 16px;
+  color: #007fff;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 8px;
+}
+
+@media (width <= 900px) {
+  .body {
+    grid-template-columns: 1fr;
+  }
+
+  .title {
+    text-align: left;
+  }
 }
 
 .input:focus {

@@ -2,8 +2,8 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, auto);
-  gap: 1.5rem;
-  margin-top: 20px;
+  gap: clamp(12px, 2vh, 18px);
+  margin-top: 0;
 }
 
 @media (width <= 900px) {
