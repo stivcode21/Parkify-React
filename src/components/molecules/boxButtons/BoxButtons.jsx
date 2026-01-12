@@ -14,12 +14,12 @@ const BoxButtons = () => {
       <ButtonModal
         name="Lista Vehiculos"
         path="/list"
-        component={<VehicleList />}
+        component={<VehicleList showExit={false} />}
       />
       <ButtonModal
         name="Historial"
         path="/history"
-        component={<HistoryLog />}
+        component={<HistoryLog showExit={false} />}
       />
       <ButtonModal name="Casilleros" component={<Lockers />} />
       <ButtonModal name="Salir" exit={true} />

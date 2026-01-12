@@ -4,6 +4,7 @@ import ButtonSend from "@/components/atoms/buttonSend/ButtonSend";
 import { useNotification } from "@/context/notificationProvider/notificationProvider";
 import { useLoader } from "@/context/loaderProvider/LoaderProvider";
 import ParkifyLogov2 from "@/components/atoms/parkifyLogov2/ParkifyLogov2";
+import { CarFront, Hash, Tag } from "lucide-react";
 
 const VehicleEntry = () => {
   const [vehiculo, setVehiculo] = useState("");
@@ -30,7 +31,7 @@ const VehicleEntry = () => {
     }
 
     if (!placa.trim()) {
-      notify("Warning", "Por favor, ingresa la placa del vehículo.");
+      notify("Warning", "Por favor, ingresa la placa del vehiculo.");
       return false;
     }
 
@@ -60,94 +61,123 @@ const VehicleEntry = () => {
       const data = await res.json();
 
       if (!res.ok) {
-        notify("Error", data.message || "Error al registrar el vehículo.");
+        notify("Error", data.message || "Error al registrar el vehiculo.");
         return;
       }
 
-      notify("Success", data.message || "Vehículo ingresado correctamente.");
+      notify("Success", data.message || "Vehiculo ingresado correctamente.");
 
-      // ✅ Limpiar formulario
+      // Limpiar formulario
       setPlaca("");
       setVehiculo("");
       setCasillero("");
     } catch (error) {
-      console.error("Error al registrar vehículo:", error);
-      notify("Error", "Error de conexión con el servidor.");
+      console.error("Error al registrar vehiculo:", error);
+      notify("Error", "Error de conexion con el servidor.");
     } finally {
       toggleLoader(false);
     }
   };
 
   return (
-    <>
-      <ParkifyLogov2 />
-      <h2 className={styles.title}>Ingreso de Vehículos</h2>
-      <div className={styles.container}>
-        <form className={styles.form} onSubmit={handleSubmit}>
-          <label className={styles.label}>
-            <input
-              type="radio"
-              name="vehiculo"
-              className={styles.inputRadio}
-              value="moto"
-              checked={vehiculo === "moto"}
-              onChange={(e) => setVehiculo(e.target.value)}
-            />
-            <span
-              className={`${vehiculo === "moto" ? styles.vehicleState : ""}`}
-            >
-              Moto
-            </span>
-          </label>
+    <div className={styles.layout}>
+      <h2 className={styles.title}>Ingreso de Vehiculos</h2>
 
-          <label className={styles.label}>
-            <input
-              type="radio"
-              name="vehiculo"
-              className={styles.inputRadio}
-              value="carro"
-              checked={vehiculo === "carro"}
-              onChange={(e) => setVehiculo(e.target.value)}
-            />
-            <span
-              className={`${vehiculo === "carro" ? styles.vehicleState : ""}`}
-            >
-              Carro
+      <form className={styles.body}>
+        <div className={styles.section}>
+          <div className={styles.sectionHeader}>
+            <span className={styles.sectionTitle}>
+              <CarFront className={styles.sectionIcon} />
+              Tipo de vehiculo
             </span>
-          </label>
-        </form>
+            <span className={styles.sectionHelp}>
+              Selecciona moto o carro para continuar
+            </span>
+          </div>
+          <div className={styles.containerType} onSubmit={handleSubmit}>
+            <label className={styles.label}>
+              <input
+                type="radio"
+                name="vehiculo"
+                className={styles.inputRadio}
+                value="moto"
+                checked={vehiculo === "moto"}
+                onChange={(e) => setVehiculo(e.target.value)}
+              />
+              <span
+                className={`${vehiculo === "moto" ? styles.vehicleState : ""}`}
+              >
+                Moto
+              </span>
+            </label>
 
-        <div className={styles.containerPlaca}>
-          <span className={styles.labelPlaca}>Placa</span>
-          <input
-            className={styles.input}
-            type="text"
-            value={placa}
-            maxLength={6}
-            placeholder="_ _ _"
-            autoComplete="off"
-            onChange={(e) => setPlaca(e.target.value)}
-            id="placa"
-            autoFocus
-          />
+            <label className={styles.label}>
+              <input
+                type="radio"
+                name="vehiculo"
+                className={styles.inputRadio}
+                value="carro"
+                checked={vehiculo === "carro"}
+                onChange={(e) => setVehiculo(e.target.value)}
+              />
+              <span
+                className={`${vehiculo === "carro" ? styles.vehicleState : ""}`}
+              >
+                Carro
+              </span>
+            </label>
+          </div>
         </div>
 
-        <div className={styles.containerLocker}>
-          <input
-            className={`${styles.input} ${styles.inputLocker}`}
-            type="text"
-            value={casillero}
-            placeholder="00"
-            autoComplete="off"
-            onChange={(e) => setCasillero(e.target.value)}
-            id="casillero"
-            maxLength={2}
-          />
-          <span className={styles.labelLocker}> Casillero</span>
+        <div className={styles.section}>
+          <div className={styles.containerPlaca}>
+            <span className={styles.labelPlaca}>
+              <Hash className={styles.sectionIcon} />
+              Placa
+            </span>
+            <span className={styles.inputHelp}>Ingresa 6 caracteres</span>
+            <input
+              className={styles.input}
+              type="text"
+              value={placa}
+              maxLength={6}
+              placeholder="_ _ _"
+              autoComplete="off"
+              onChange={(e) => setPlaca(e.target.value)}
+              id="placa"
+              autoFocus
+            />
+          </div>
         </div>
+
+        <div className={`${styles.section} ${styles.sectionWide}`}>
+          <div className={styles.sectionHeader}>
+            <span className={styles.sectionTitle}>
+              <Tag className={styles.sectionIcon} />
+              Casillero
+            </span>
+            <span className={styles.sectionHelp}>Opcional, si aplica</span>
+          </div>
+          <div className={styles.containerLocker}>
+            <input
+              className={`${styles.input} ${styles.inputLocker}`}
+              type="text"
+              value={casillero}
+              placeholder="00"
+              autoComplete="off"
+              onChange={(e) => setCasillero(e.target.value)}
+              id="casillero"
+              maxLength={2}
+            />
+            <span className={styles.labelLocker}>Casillero</span>
+          </div>
+        </div>
+      </form>
+
+      <div className={styles.actions}>
         <ButtonSend name="Ingresar" onClick={handleSubmit} />
       </div>
-    </>
+    </div>
   );
 };
 

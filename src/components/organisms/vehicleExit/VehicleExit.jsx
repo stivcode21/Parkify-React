@@ -26,7 +26,7 @@ const VehicleExit = () => {
 
   const validateForm = () => {
     if (placa.trim().length !== 6) {
-      notify("Warning", "Por favor, ingresa una placa válida de 6 caracteres.");
+      notify("Warning", "Por favor, ingresa una placa valida de 6 caracteres.");
       return false;
     }
     return true;
@@ -52,7 +52,7 @@ const VehicleExit = () => {
       const data = await res.json();
 
       if (!res.ok) {
-        notify("Error", data.message || "Error al Buscar el vehículo.");
+        notify("Error", data.message || "Error al buscar el vehiculo.");
         return;
       }
       setDataVehiculo(data.vehicle);
@@ -61,7 +61,7 @@ const VehicleExit = () => {
       setPlaca("");
     } catch (err) {
       console.error(err);
-      notify("Error", "Error al buscar el vehículo.");
+      notify("Error", "Error al buscar el vehiculo.");
     } finally {
       toggleLoader(false);
     }
@@ -85,41 +85,41 @@ const VehicleExit = () => {
       const data = await res.json();
 
       if (!res.ok) {
-        notify("Error", data.message || "Error al registrar el vehículo.");
+        notify("Error", data.message || "Error al registrar el vehiculo.");
         return;
       }
 
-      notify("Success", "Vehículo dado de salida correctamente.");
+      notify("Success", "Vehiculo dado de salida correctamente.");
       setTicketBill(false);
       setDataVehiculo(null);
       setPlaca("");
     } catch (err) {
       console.error(err);
-      notify("Error", "Error al buscar el vehículo.");
+      notify("Error", "Error al buscar el vehiculo.");
     } finally {
       toggleLoader(false);
     }
   };
 
   return (
-    <>
-      <ParkifyLogov2 />
-      <h2 className={styles.title}>Salida de Vehículos</h2>
-      <div className={styles.container}>
+    <div className={styles.layout}>
+      <h2 className={styles.title}>Salida de Vehiculos</h2>
+
+      <div className={styles.body}>
         {ticketBill ? (
-          <div className={styles.column1}>
+          <div className={styles.ticketSection}>
             <TicketBill
               selected={dataVehiculo?.placa}
               tiempoPasado={tiempoPasado.texto}
               valorAPagar={valorAPagar}
             />
-            <div className={styles.containerButton}>
+            <div className={styles.actions}>
               <ButtonSend name="Salida" onClick={handleExitVehicle} />
             </div>
           </div>
         ) : (
-          <div className={styles.column2}>
-            <div className={styles.containerPlaca}>
+          <div className={styles.searchSection}>
+            <div className={styles.field}>
               <span className={styles.labelPlaca}>Placa</span>
               <input
                 className={styles.input}
@@ -132,11 +132,13 @@ const VehicleExit = () => {
                 autoFocus
               />
             </div>
-            <ButtonSend name="Buscar" onClick={handleSubmit} />
+            <div className={styles.actions}>
+              <ButtonSend name="Buscar" onClick={handleSubmit} />
+            </div>
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 };
 

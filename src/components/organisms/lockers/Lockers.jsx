@@ -16,7 +16,7 @@ const Lockers = () => {
       try {
         const res = await fetch("http://localhost:3000/api/lockers", {
           method: "GET",
-          credentials: "include", // importante: envía la cookie
+          credentials: "include", // importante: envia la cookie
         });
 
         if (!res.ok) {
@@ -39,15 +39,17 @@ const Lockers = () => {
   }, []);
 
   return (
-    <div className={styles.lockers}>
-      {lockers.map((locker, index) => (
-        <Locker
-          key={index}
-          number={locker.numero_casillero}
-          placa={locker.placa}
-          state={locker.ocupado}
-        />
-      ))}
+    <div className={styles.layout}>
+      <div className={styles.grid}>
+        {lockers.map((locker, index) => (
+          <Locker
+            key={index}
+            number={locker.numero_casillero}
+            placa={locker.placa}
+            state={locker.ocupado}
+          />
+        ))}
+      </div>
     </div>
   );
 };

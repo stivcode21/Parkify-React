@@ -10,12 +10,14 @@ import TicketBill from "@/components/molecules/ticketBill/TicketBill";
 import { useNotification } from "@/context/notificationProvider/notificationProvider";
 import { useLoader } from "@/context/loaderProvider/LoaderProvider";
 import ExitModal from "@/components/atoms/exitModal/ExitModal";
+import useModalStore from "@/store/ModalStore";
 
-const VehicleList = () => {
+const VehicleList = ({ showExit = true }) => {
   const [vehiculos, setVehiculos] = useState([]);
   const [selected, setSelected] = useState(null);
   const { toggleLoader } = useLoader();
   const notify = useNotification();
+  const { setModalContent } = useModalStore();
 
   useEffect(() => {
     const fetchVehiculos = async () => {
@@ -27,14 +29,14 @@ const VehicleList = () => {
           credentials: "include",
         });
         if (!res.ok) {
-          notify("Error", "No se pudieron obtener los vehículos.");
+          notify("Error", "No se pudieron obtener los vehiculos.");
           return;
         }
         const data = await res.json();
         setVehiculos(data.vehicles);
       } catch (error) {
-        console.error("Error al obtener vehículos:", error);
-        notify("Error", "Error al obtener los vehículos.");
+        console.error("Error al obtener vehiculos:", error);
+        notify("Error", "Error al obtener los vehiculos.");
       }
       toggleLoader(false);
     };
@@ -42,53 +44,60 @@ const VehicleList = () => {
     fetchVehiculos();
   }, []);
 
-  const vehicleSelected = vehiculos.find((v) => v.placa === selected);
-  const tiempoPasado = getElapsedTime(
-    formatDateTime(vehicleSelected?.fecha_entrada)
-  );
-  const valorAPagar = calculatePayment(
-    formatDateTime(vehicleSelected?.fecha_entrada)
-  );
+  const handleOpenDetails = (vehicle) => {
+    const fechaEntrada = formatDateTime(vehicle?.fecha_entrada);
+    const tiempoPasado = getElapsedTime(fechaEntrada);
+    const valorAPagar = calculatePayment(fechaEntrada);
+
+    setSelected(vehicle?.placa || null);
+    setModalContent(
+      <TicketBill
+        selected={vehicle?.placa}
+        tiempoPasado={tiempoPasado?.texto}
+        valorAPagar={valorAPagar}
+      />
+    );
+  };
 
   return (
-    <div className={styles.box}>
-      <ExitModal route="/dashboard" />
-      <ParkifyLogov2 />
-      <h2 className={styles.title}>Lista de Vehículos</h2>
-      <CounterVehicles vehicles={vehiculos} />
-      <div className={styles.container}>
-        <div className={styles.column1}>
-          <table>
-            <thead>
-              <tr className={styles.header}>
-                <th>Placa</th>
-                <th>Vehículo</th>
-                <th>Casillero</th>
-                <th>Fecha/Entrada</th>
-              </tr>
-            </thead>
-            <tbody>
-              {vehiculos.map((vehicle, index) => (
-                <RowListVehicles
-                  selected={selected}
-                  setSelected={setSelected}
-                  placaID={vehicle.placa}
-                  vehiculo={vehicle.tipo}
-                  fecha={formatDateTime(vehicle.fecha_entrada)}
-                  casillero={vehicle?.id_casillero || "-"}
-                  key={index}
-                />
-              ))}
-            </tbody>
-          </table>
+    <div className={styles.layout}>
+      <header className={styles.header}>
+        <div className={styles.headerLeft}>
+          {showExit ? <ExitModal route="/dashboard" /> : null}
+          <ParkifyLogov2 />
         </div>
-        <div className={styles.column2}>
-          <TicketBill
-            selected={selected}
-            tiempoPasado={tiempoPasado.texto}
-            valorAPagar={valorAPagar}
-          />
+        <div className={styles.headerRight}>
+          <div className={styles.summary}>
+            <CounterVehicles vehicles={vehiculos} />
+          </div>
+          <h2 className={styles.title}>Lista de Vehiculos</h2>
         </div>
+      </header>
+
+      <div className={styles.tableCard}>
+        <table>
+          <thead>
+            <tr className={styles.headerRow}>
+              <th>Placa</th>
+              <th>Vehiculo</th>
+              <th>Casillero</th>
+              <th>Fecha/Entrada</th>
+            </tr>
+          </thead>
+          <tbody>
+            {vehiculos.map((vehicle, index) => (
+              <RowListVehicles
+                selected={selected}
+                onRowClick={() => handleOpenDetails(vehicle)}
+                placaID={vehicle.placa}
+                vehiculo={vehicle.tipo}
+                fecha={formatDateTime(vehicle.fecha_entrada)}
+                casillero={vehicle?.id_casillero || "-"}
+                key={index}
+              />
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

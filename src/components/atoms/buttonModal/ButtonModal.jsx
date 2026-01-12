@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/supabase/supabase";
 import styles from "./ButtonModal.module.css";
 import useModalStore from "@/store/ModalStore";
 import { useNotification } from "@/context/notificationProvider/notificationProvider";

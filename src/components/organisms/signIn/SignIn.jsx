@@ -11,7 +11,6 @@ const SignIn = () => {
   const [correo, setCorreo] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [sent, setSent] = useState(false);
   const notify = useNotification();
   const navigate = useNavigate();
   const { toggleLoader } = useLoader();
@@ -25,7 +24,7 @@ const SignIn = () => {
       return false;
     }
     if (!password.trim()) {
-      notify("Warning", "Por favor, ingresa tu contraseÃ±a.");
+      notify("Warning", "Por favor, ingresa tu contraseña.");
       return false;
     }
     if (!emailRegex.test(correo)) {
@@ -40,7 +39,7 @@ const SignIn = () => {
     const verifySession = async () => {
       const loggedIn = await checkAuth();
       if (loggedIn) {
-        navigate("/dashboard"); // redirige si ya tiene cookie vÃ¡lida
+        navigate("/dashboard"); // redirige si ya tiene cookie válida
       }
     };
     verifySession();
@@ -68,7 +67,7 @@ const SignIn = () => {
       notify("Success", data.message);
       navigate("/dashboard");
     } catch (error) {
-      console.error("Error en inicio de sesiÃ³n:", error);
+      console.error("Error en inicio de sesión:", error);
       notify("Error", "Ha ocurrido un error inesperado.");
     } finally {
       toggleLoader(false);
@@ -77,11 +76,11 @@ const SignIn = () => {
 
   return (
     <>
-      <h1 className={styles.title}>INICIAR SESIÃ“N</h1>
+      <h1 className={styles.title}>INICIAR SESIÓN</h1>
       <h2 className={styles.subtitle}>
-        Ingresa tu <strong>correo</strong> y <strong>contraseÃ±a</strong> para
+        Ingresa tu <strong>correo</strong> y <strong>contraseña</strong> para
         que podamos enviarte un enlace de acceso si las credenciales son
-        vÃ¡lidas.
+        válidas.
       </h2>
 
       <form className={styles.form} onSubmit={handleSubmit}>
@@ -95,7 +94,7 @@ const SignIn = () => {
           onChange={(e) => setCorreo(e.target.value)}
         />
 
-        <label className={styles.label}>ContraseÃ±a:</label>
+        <label className={styles.label}>Contraseña:</label>
         <div className={styles.containerPassword}>
           <input
             className={styles.input}

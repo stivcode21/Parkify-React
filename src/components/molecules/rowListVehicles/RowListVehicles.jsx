@@ -7,14 +7,23 @@ const RowListVehicles = ({
   casillero,
   selected,
   setSelected,
+  onRowClick,
   history,
   salida,
   pago,
 }) => {
+  const isClickable = Boolean(setSelected || onRowClick);
+  const handleClick = () => {
+    if (setSelected) setSelected(placaID);
+    if (onRowClick) onRowClick();
+  };
+
   return (
     <tr
-      onClick={() => setSelected(placaID)}
-      className={selected === placaID ? styles.selected : ""}
+      onClick={isClickable ? handleClick : undefined}
+      className={`${selected === placaID ? styles.selected : ""} ${
+        isClickable ? styles.clickable : ""
+      }`}
     >
       {history ? (
         <>
