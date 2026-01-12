@@ -1,29 +1,38 @@
 .closeButton {
-  position: fixed;
-  z-index: 20;
-  top: 15px;
-  left: 15px;
   width: 40px;
   height: 40px;
-  background-color: transparent;
+  background-color: #151719;
   border: 1px solid #383838;
-  border-radius: 10px;
+  border-radius: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
   color: #fff;
   font-size: 1.5rem;
   cursor: pointer;
-  z-index: 1002;
+  transition: transform 0.12s ease, border-color 0.12s ease,
+    background-color 0.12s ease;
 }
 
 .closeButton:hover svg {
-  scale: 1.05;
-  translate: -2px 0px;
-  transition: all 0.1s ease-in-out;
+  transform: translateX(-2px);
 }
 
 .closeButton svg {
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
+}
+
+.closeButton:hover {
+  border-color: #007fff;
+  background-color: #0d0d0d;
+}
+
+.closeButton:active {
+  transform: scale(0.98);
+}
+
+.closeButton:focus-visible {
+  outline: 2px solid #007fff;
+  outline-offset: 2px;
 }

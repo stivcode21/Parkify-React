@@ -1,26 +1,38 @@
 .button {
-  width: 250px;
-  height: 90px;
+  width: clamp(170px, 20vw, 240px);
+  height: clamp(64px, 15vh, 84px);
   background: linear-gradient(335deg, #00366b 20%, rgba(0, 89, 179, 1) 80%);
   background-size: 100% 100%;
   border: 2px solid #00366b;
   color: #ffffff;
   font-weight: 800;
-  font-size: 1.2rem;
+  font-size: clamp(0.85rem, 1.6vw, 1.05rem);
   text-transform: uppercase;
-  padding: 0 40px;
-  border-radius: 15px;
+  letter-spacing: 0.04em;
+  padding: 0 28px;
+  border-radius: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  transition: background-position 0.3s ease-in-out;
+  transition: transform 0.15s ease, background-position 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .button:hover {
   background-size: 140% 100%;
   background-position: right center;
   border: 2px solid #007fff;
+  transform: translateY(-1px);
+}
+
+.button:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.button:focus-visible {
+  outline: 2px solid #007fff;
+  outline-offset: 2px;
 }
 
 .salida {
@@ -33,16 +45,7 @@
   background-size: 140% 100%;
   background-position: right center;
   border: 2px solid #ff0000;
-}
-
-.button:hover {
-  scale: 1.01;
-  transition: all 0.2s ease-in-out;
-}
-
-.button:active {
-  scale: 0.9;
-  transition: all 0.1s ease-in-out;
+  transform: translateY(-1px);
 }
 
 @media (width <= 900px) {

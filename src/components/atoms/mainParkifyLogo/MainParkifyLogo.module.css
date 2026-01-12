@@ -1,6 +1,6 @@
 .title {
   color: #fff;
-  font-size: 7rem;
+  font-size: clamp(3.2rem, 6vw, 6rem);
   text-align: center;
   margin: 0;
   font-family: "Chela One", system-ui;
@@ -16,6 +16,6 @@
 /* MEDIA QUERIES */
 @media (width <= 768px) {
   .title {
-    font-size: 6rem;
+    font-size: clamp(2.8rem, 7vw, 4.8rem);
   }
 }
