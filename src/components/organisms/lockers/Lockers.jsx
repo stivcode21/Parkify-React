@@ -3,6 +3,7 @@ import styles from "./Lockers.module.css";
 import { useNotification } from "@/context/notificationProvider/notificationProvider";
 import { useEffect, useState } from "react";
 import { useLoader } from "@/context/loaderProvider/LoaderProvider";
+import { buildApiUrl } from "@/utils/apiBase";
 
 const Lockers = () => {
   const [lockers, setLockers] = useState([]);
@@ -14,7 +15,7 @@ const Lockers = () => {
       toggleLoader(true);
 
       try {
-        const res = await fetch("http://localhost:3000/api/lockers", {
+        const res = await fetch(buildApiUrl("/api/lockers"), {
           method: "GET",
           credentials: "include", // importante: envia la cookie
         });

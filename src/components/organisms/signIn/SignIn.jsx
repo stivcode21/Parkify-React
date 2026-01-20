@@ -6,6 +6,7 @@ import { useNotification } from "@/context/notificationProvider/notificationProv
 import { EyeClosedIcon, EyeIcon } from "lucide-react";
 import { useLoader } from "@/context/loaderProvider/LoaderProvider";
 import { checkAuth } from "@/utils/auth";
+import { buildApiUrl } from "@/utils/apiBase";
 
 const SignIn = () => {
   const [correo, setCorreo] = useState("");
@@ -51,7 +52,7 @@ const SignIn = () => {
 
     try {
       toggleLoader(true);
-      const res = await fetch("http://localhost:3000/api/auth/login", {
+      const res = await fetch(buildApiUrl("/api/auth/login"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include", // importante para que guarde la cookie

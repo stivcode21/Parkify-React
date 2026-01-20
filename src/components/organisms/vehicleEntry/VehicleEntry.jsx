@@ -5,6 +5,7 @@ import { useNotification } from "@/context/notificationProvider/notificationProv
 import { useLoader } from "@/context/loaderProvider/LoaderProvider";
 import ParkifyLogov2 from "@/components/atoms/parkifyLogov2/ParkifyLogov2";
 import { CarFront, Hash, Tag } from "lucide-react";
+import { buildApiUrl } from "@/utils/apiBase";
 
 const VehicleEntry = () => {
   const [vehiculo, setVehiculo] = useState("");
@@ -45,7 +46,7 @@ const VehicleEntry = () => {
     try {
       toggleLoader(true);
 
-      const res = await fetch("http://localhost:3000/api/vehicles/entry", {
+      const res = await fetch(buildApiUrl("/api/vehicles/entry"), {
         method: "POST",
         credentials: "include",
         headers: {

@@ -5,6 +5,7 @@ import CounterVehicles from "@/components/molecules/counterVehicles/CounterVehic
 import { formatDateTime } from "@/utils/formatDate";
 import { calculatePayment } from "@/utils/calculatePayment";
 import { getElapsedTime } from "@/utils/getElapsedTime";
+import { buildApiUrl } from "@/utils/apiBase";
 import RowListVehicles from "@/components/molecules/rowListVehicles/RowListVehicles";
 import TicketBill from "@/components/molecules/ticketBill/TicketBill";
 import { useNotification } from "@/context/notificationProvider/notificationProvider";
@@ -24,7 +25,7 @@ const VehicleList = ({ showExit = true }) => {
       toggleLoader(true);
 
       try {
-        const res = await fetch("http://localhost:3000/api/vehicles/list", {
+        const res = await fetch(buildApiUrl("/api/vehicles/list"), {
           method: "GET",
           credentials: "include",
         });

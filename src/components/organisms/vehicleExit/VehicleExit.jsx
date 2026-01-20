@@ -8,6 +8,7 @@ import { useLoader } from "@/context/loaderProvider/LoaderProvider";
 import { getElapsedTime } from "@/utils/getElapsedTime";
 import { formatDateTime } from "@/utils/formatDate";
 import { calculatePayment } from "@/utils/calculatePayment";
+import { buildApiUrl } from "@/utils/apiBase";
 
 const VehicleExit = () => {
   const [dataVehiculo, setDataVehiculo] = useState(null);
@@ -38,7 +39,7 @@ const VehicleExit = () => {
 
     try {
       toggleLoader(true);
-      const res = await fetch("http://localhost:3000/api/vehicles/search", {
+      const res = await fetch(buildApiUrl("/api/vehicles/search"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -70,7 +71,7 @@ const VehicleExit = () => {
   const handleExitVehicle = async () => {
     try {
       toggleLoader(true);
-      const res = await fetch("http://localhost:3000/api/vehicles/exit", {
+      const res = await fetch(buildApiUrl("/api/vehicles/exit"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

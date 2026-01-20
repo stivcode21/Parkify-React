@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "./ButtonModal.module.css";
 import useModalStore from "@/store/ModalStore";
 import { useNotification } from "@/context/notificationProvider/notificationProvider";
+import { buildApiUrl } from "@/utils/apiBase";
 
 const ButtonModal = ({ exit = false, name, component, path = null }) => {
   const { setModalContent } = useModalStore();
@@ -16,7 +17,7 @@ const ButtonModal = ({ exit = false, name, component, path = null }) => {
 
     if (exit) {
       try {
-        const res = await fetch("http://localhost:3000/api/auth/logout", {
+        const res = await fetch(buildApiUrl("/api/auth/logout"), {
           method: "POST", // usamos POST para cerrar sesión
           credentials: "include", // importante para que la cookie httpOnly se envíe
         });

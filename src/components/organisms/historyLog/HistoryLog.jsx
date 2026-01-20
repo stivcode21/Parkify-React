@@ -6,6 +6,7 @@ import { useNotification } from "@/context/notificationProvider/notificationProv
 import { formatDateTime } from "@/utils/formatDate";
 import { useLoader } from "@/context/loaderProvider/LoaderProvider";
 import ExitModal from "@/components/atoms/exitModal/ExitModal";
+import { buildApiUrl } from "@/utils/apiBase";
 
 const HistoryLog = ({ showExit = true }) => {
   const [vehiculos, setVehiculos] = useState([]);
@@ -17,7 +18,7 @@ const HistoryLog = ({ showExit = true }) => {
     const fetchVehiculos = async () => {
       toggleLoader(true);
       try {
-        const res = await fetch("http://localhost:3000/api/vehicles/records", {
+        const res = await fetch(buildApiUrl("/api/vehicles/records"), {
           method: "GET",
           credentials: "include",
         });
