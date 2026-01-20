@@ -52,7 +52,7 @@ const SignIn = () => {
 
     try {
       toggleLoader(true);
-      const res = await fetch(buildApiUrl("/api/auth/login"), {
+      const res = await fetch(buildApiUrl("auth/login"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include", // importante para que guarde la cookie

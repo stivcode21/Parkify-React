@@ -39,7 +39,7 @@ const VehicleExit = () => {
 
     try {
       toggleLoader(true);
-      const res = await fetch(buildApiUrl("/api/vehicles/search"), {
+      const res = await fetch(buildApiUrl("vehicles/search"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -71,7 +71,7 @@ const VehicleExit = () => {
   const handleExitVehicle = async () => {
     try {
       toggleLoader(true);
-      const res = await fetch(buildApiUrl("/api/vehicles/exit"), {
+      const res = await fetch(buildApiUrl("vehicles/exit"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -15,7 +15,7 @@ const Lockers = () => {
       toggleLoader(true);
 
       try {
-        const res = await fetch(buildApiUrl("/api/lockers"), {
+        const res = await fetch(buildApiUrl("lockers"), {
           method: "GET",
           credentials: "include", // importante: envia la cookie
         });

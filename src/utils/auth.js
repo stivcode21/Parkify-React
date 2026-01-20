@@ -2,7 +2,7 @@ import { buildApiUrl } from "./apiBase";
 
 export const checkAuth = async () => {
   try {
-    const res = await fetch(buildApiUrl("/api/auth/dashboard"), {
+    const res = await fetch(buildApiUrl("auth/dashboard"), {
       method: "GET",
       credentials: "include",
     });

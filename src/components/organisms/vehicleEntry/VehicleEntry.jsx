@@ -46,7 +46,7 @@ const VehicleEntry = () => {
     try {
       toggleLoader(true);
 
-      const res = await fetch(buildApiUrl("/api/vehicles/entry"), {
+      const res = await fetch(buildApiUrl("vehicles/entry"), {
         method: "POST",
         credentials: "include",
         headers: {

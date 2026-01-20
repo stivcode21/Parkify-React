@@ -18,7 +18,7 @@ const HistoryLog = ({ showExit = true }) => {
     const fetchVehiculos = async () => {
       toggleLoader(true);
       try {
-        const res = await fetch(buildApiUrl("/api/vehicles/records"), {
+        const res = await fetch(buildApiUrl("vehicles/records"), {
           method: "GET",
           credentials: "include",
         });

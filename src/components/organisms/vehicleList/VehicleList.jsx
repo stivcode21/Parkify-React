@@ -25,7 +25,7 @@ const VehicleList = ({ showExit = true }) => {
       toggleLoader(true);
 
       try {
-        const res = await fetch(buildApiUrl("/api/vehicles/list"), {
+        const res = await fetch(buildApiUrl("vehicles/list"), {
           method: "GET",
           credentials: "include",
         });

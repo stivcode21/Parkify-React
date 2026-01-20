@@ -17,7 +17,7 @@ const ButtonModal = ({ exit = false, name, component, path = null }) => {
 
     if (exit) {
       try {
-        const res = await fetch(buildApiUrl("/api/auth/logout"), {
+        const res = await fetch(buildApiUrl("auth/logout"), {
           method: "POST", // usamos POST para cerrar sesión
           credentials: "include", // importante para que la cookie httpOnly se envíe
         });
