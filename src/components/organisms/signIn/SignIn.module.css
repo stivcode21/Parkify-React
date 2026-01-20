@@ -8,9 +8,10 @@
 
 .form {
   width: 100%;
-  max-width: 420px;
+  max-width: 400px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 0.75rem;
 }
 
@@ -51,7 +52,7 @@ strong {
 }
 
 .input {
-  width: 100%;
+  width: 94%;
   height: 44px;
   border: 2px solid #000000;
   border-radius: 12px;
@@ -101,5 +102,9 @@ strong {
 @media (width <= 800px) {
   .subtitle {
     width: 70%;
+  }
+
+  .input {
+    width: 92%;
   }
 }

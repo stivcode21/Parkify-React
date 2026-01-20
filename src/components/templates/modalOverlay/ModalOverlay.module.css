@@ -23,6 +23,7 @@
   overflow: hidden;
   z-index: 20;
   display: flex;
+  justify-content: center;
   flex-direction: column;
 }
 
@@ -62,7 +63,10 @@
 }
 
 @media (width <= 900px) {
+  .overlay {
+    padding: 4px;
+  }
   .modal {
-    width: 96vw;
+    width: 92%;
   }
 }
