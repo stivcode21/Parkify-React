@@ -9,20 +9,19 @@ import { getElapsedTime } from "@/utils/getElapsedTime";
 import { formatDateTime } from "@/utils/formatDate";
 import { calculatePayment } from "@/utils/calculatePayment";
 import { buildApiUrl } from "@/utils/apiBase";
+import TicketModal from "@/components/templates/ticketModal/TicketModal";
 
 const VehicleExit = () => {
   const [dataVehiculo, setDataVehiculo] = useState(null);
   const [placa, setPlaca] = useState("");
-  const [ticketBill, setTicketBill] = useState(false);
+  const [ticketOpen, setTicketOpen] = useState(false);
   const { toggleLoader } = useLoader();
   const notify = useNotification();
 
-  const tiempoPasado = getElapsedTime(
-    formatDateTime(dataVehiculo?.fecha_entrada)
-  );
-  const valorAPagar = calculatePayment(
-    formatDateTime(dataVehiculo?.fecha_entrada)
-  );
+  const entrada = formatDateTime(dataVehiculo?.fecha_entrada);
+  const salida = formatDateTime(new Date());
+  const tiempoPasado = getElapsedTime(entrada);
+  const valorAPagar = calculatePayment(entrada);
   console.log("Tiempo pasado:", valorAPagar);
 
   const validateForm = () => {
@@ -58,7 +57,7 @@ const VehicleExit = () => {
       }
       setDataVehiculo(data.vehicle);
 
-      setTicketBill(true);
+      setTicketOpen(true);
       setPlaca("");
     } catch (err) {
       console.error(err);
@@ -91,7 +90,7 @@ const VehicleExit = () => {
       }
 
       notify("Success", "Vehiculo dado de salida correctamente.");
-      setTicketBill(false);
+      setTicketOpen(false);
       setDataVehiculo(null);
       setPlaca("");
     } catch (err) {
@@ -107,38 +106,42 @@ const VehicleExit = () => {
       <h2 className={styles.title}>Salida de Vehiculos</h2>
 
       <div className={styles.body}>
-        {ticketBill ? (
-          <div className={styles.ticketSection}>
-            <TicketBill
-              selected={dataVehiculo?.placa}
-              tiempoPasado={tiempoPasado.texto}
-              valorAPagar={valorAPagar}
+        <div className={styles.searchSection}>
+          <div className={styles.field}>
+            <span className={styles.labelPlaca}>Placa</span>
+            <input
+              className={styles.input}
+              type="text"
+              value={placa}
+              placeholder="_ _ _"
+              onChange={(e) => setPlaca(e.target.value)}
+              maxLength={6}
+              id="placa"
+              autoFocus
             />
-            <div className={styles.actions}>
+          </div>
+          <div className={styles.actions}>
+            <ButtonSend name="Buscar" onClick={handleSubmit} />
+          </div>
+        </div>
+      </div>
+      {ticketOpen ? (
+        <TicketModal onClose={() => setTicketOpen(false)}>
+          <div className={styles.ticketModalContent}>
+            <TicketBill
+              variant="exit"
+              selected={dataVehiculo?.placa}
+              tiempoPasado={tiempoPasado?.texto}
+              valorAPagar={valorAPagar}
+              entrada={entrada}
+              salida={salida}
+            />
+            <div className={styles.ticketModalActions}>
               <ButtonSend name="Salida" onClick={handleExitVehicle} />
             </div>
           </div>
-        ) : (
-          <div className={styles.searchSection}>
-            <div className={styles.field}>
-              <span className={styles.labelPlaca}>Placa</span>
-              <input
-                className={styles.input}
-                type="text"
-                value={placa}
-                placeholder="_ _ _"
-                onChange={(e) => setPlaca(e.target.value)}
-                maxLength={6}
-                id="placa"
-                autoFocus
-              />
-            </div>
-            <div className={styles.actions}>
-              <ButtonSend name="Buscar" onClick={handleSubmit} />
-            </div>
-          </div>
-        )}
-      </div>
+        </TicketModal>
+      ) : null}
     </div>
   );
 };

@@ -3,7 +3,6 @@ import styles from "./VehicleList.module.css";
 import ParkifyLogov2 from "@/components/atoms/parkifyLogov2/ParkifyLogov2";
 import CounterVehicles from "@/components/molecules/counterVehicles/CounterVehicles";
 import { formatDateTime } from "@/utils/formatDate";
-import { calculatePayment } from "@/utils/calculatePayment";
 import { getElapsedTime } from "@/utils/getElapsedTime";
 import { buildApiUrl } from "@/utils/apiBase";
 import RowListVehicles from "@/components/molecules/rowListVehicles/RowListVehicles";
@@ -11,14 +10,14 @@ import TicketBill from "@/components/molecules/ticketBill/TicketBill";
 import { useNotification } from "@/context/notificationProvider/notificationProvider";
 import { useLoader } from "@/context/loaderProvider/LoaderProvider";
 import ExitModal from "@/components/atoms/exitModal/ExitModal";
-import useModalStore from "@/store/ModalStore";
+import TicketModal from "@/components/templates/ticketModal/TicketModal";
 
 const VehicleList = ({ showExit = true }) => {
   const [vehiculos, setVehiculos] = useState([]);
   const [selected, setSelected] = useState(null);
+  const [ticketData, setTicketData] = useState(null);
   const { toggleLoader } = useLoader();
   const notify = useNotification();
-  const { setModalContent } = useModalStore();
 
   useEffect(() => {
     const fetchVehiculos = async () => {
@@ -48,20 +47,35 @@ const VehicleList = ({ showExit = true }) => {
   const handleOpenDetails = (vehicle) => {
     const fechaEntrada = formatDateTime(vehicle?.fecha_entrada);
     const tiempoPasado = getElapsedTime(fechaEntrada);
-    const valorAPagar = calculatePayment(fechaEntrada);
-
     setSelected(vehicle?.placa || null);
-    setModalContent(
-      <TicketBill
-        selected={vehicle?.placa}
-        tiempoPasado={tiempoPasado?.texto}
-        valorAPagar={valorAPagar}
-      />,
-    );
+    setTicketData({
+      placa: vehicle?.placa,
+      tiempo: tiempoPasado?.texto,
+      entrada: fechaEntrada,
+      tipoVehiculo: vehicle?.tipo,
+      casillero: vehicle?.id_casillero || "---",
+    });
+  };
+
+  const handleCloseTicket = () => {
+    setTicketData(null);
+    setSelected(null);
   };
 
   return (
     <div className={styles.layout}>
+      {ticketData ? (
+        <TicketModal onClose={handleCloseTicket}>
+          <TicketBill
+            variant="info"
+            selected={ticketData?.placa}
+            tiempoPasado={ticketData?.tiempo}
+            entrada={ticketData?.entrada}
+            tipoVehiculo={ticketData?.tipoVehiculo}
+            casillero={ticketData?.casillero}
+          />
+        </TicketModal>
+      ) : null}
       <header className={styles.header}>
         <div className={styles.headerLeft}>
           {showExit ? <ExitModal route="/dashboard" /> : null}
