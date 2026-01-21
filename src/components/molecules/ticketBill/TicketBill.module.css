@@ -1,72 +1,220 @@
-.box {
-  width: 320px;
-  max-height: 400px;
-  background-color: #151719;
-  border-radius: 12px;
-  padding: 16px;
+.ticket {
+  --ticket-cutout: #0d0d0d;
+  --ticket-accent: #1c3d6b;
+  width: min(360px, 92vw);
+  background: linear-gradient(180deg, #fffdf6 0%, #f5efe1 100%);
+  border-radius: 16px;
+  border: 1px solid #e5dbc4;
+  padding: 18px 20px;
+  position: relative;
+  color: #1b1b1b;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.25);
 }
 
-.placa {
-  background-color: #0d0d0d;
-  width: 200px;
-  height: 56px;
+.ticket::before,
+.ticket::after {
+  content: "";
+  position: absolute;
+  top: 58%;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--ticket-cutout);
+  transform: translateY(-50%);
+}
+
+.ticket::before {
+  left: -9px;
+}
+
+.ticket::after {
+  right: -9px;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 58px 1fr auto;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  width: 58px;
+  height: 58px;
+  padding: 8px;
   border-radius: 12px;
-  padding: 10px 12px;
-  color: #ffffff;
-  font-weight: 900;
-  text-align: center;
+  background: #ffffff;
+  border: 1px solid #e5dbc4;
+  object-fit: contain;
+}
+
+.headerText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.brand {
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  font-size: 2.4rem;
-  letter-spacing: 0.08em;
+  font-weight: 700;
+  color: #7a6a52;
 }
 
-.containerItems {
+.title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.date {
+  font-size: 0.8rem;
+  color: #6b5f4b;
+}
+
+.badge {
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid #1b1b1b;
+  background: #1b1b1b;
+  color: #fef7e8;
+}
+
+.divider {
+  border-top: 2px dashed #d7cbb2;
+  margin: 14px 0;
+}
+
+.plateBlock {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   gap: 8px;
-  margin-top: 12px;
 }
 
 .label {
-  color: #ffffff;
-  font-size: 1rem;
-  font-weight: bold;
-  text-transform: uppercase;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 5px;
+  gap: 6px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #6c5f4b;
+  font-weight: 700;
 }
 
 .label svg {
-  color: #007fff;
+  color: var(--ticket-accent);
 }
 
-.time {
+.plate {
+  background: #141414;
+  color: #fdf9ee;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  min-width: 200px;
   text-align: center;
-  font-size: 1rem;
-  font-weight: bold;
-  color: #007fff;
 }
 
-.money {
+.details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.detailItem {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #007fff;
+  flex-direction: column;
+  gap: 4px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed #e0d4bc;
+}
+
+.detailLabel {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #7b6b53;
+}
+
+.detailValue {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1f1f1f;
+}
+
+.detailValueStrong {
+  font-size: 1.1rem;
   font-weight: 900;
+  color: var(--ticket-accent);
+}
+
+.barcode {
+  margin-top: 12px;
+  height: 46px;
+  border-radius: 8px;
+  background: repeating-linear-gradient(
+    90deg,
+    #111 0 2px,
+    transparent 2px 4px,
+    #111 4px 5px,
+    transparent 5px 8px
+  );
+}
+
+.barcodeText {
+  margin-top: 6px;
   text-align: center;
-  font-size: 1.8rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.38em;
+  font-weight: 700;
+  color: #1b1b1b;
+}
+
+.info {
+  --ticket-accent: #2b5c45;
+}
+
+.exit {
+  --ticket-accent: #1c3d6b;
+}
+
+.exit .badge {
+  background: var(--ticket-accent);
+  border-color: var(--ticket-accent);
 }
 
 @media (width <= 768px) {
-  .box {
-    width: 280px;
+  .ticket {
+    width: min(320px, 92vw);
+    padding: 16px;
   }
-  .placa {
-    font-size: 2rem;
-    height: 60px;
+
+  .header {
+    grid-template-columns: 52px 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  .badge {
+    grid-column: 1 / -1;
+    justify-self: start;
+    margin-top: 8px;
+  }
+
+  .plate {
+    font-size: 1.4rem;
+    min-width: 180px;
+  }
+
+  .details {
+    grid-template-columns: 1fr;
   }
 }
