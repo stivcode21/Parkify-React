@@ -12,6 +12,27 @@ const LayoutLogin = ({ children }) => {
           <h2 className={styles.welcomeText}>Bienvenidos a</h2>
           <MainParkifyLogo />
           <p className={styles.subtitle}>Sistema de gestion parqueadero</p>
+          {/* demo toast */}
+          <div className={styles.demoToast}>
+            <div className={styles.demoHeader}>
+              <span className={styles.demoTitle}>Acceso de prueba</span>
+            </div>
+            <p className={styles.demoText}>
+              Usa estas credenciales para explorar la app.
+            </p>
+            <div className={styles.demoCredentials}>
+              <div className={styles.credentialRow}>
+                <span className={styles.credentialLabel}>Correo</span>
+                <span className={styles.credentialValue}>
+                  superadmin@gmail.com
+                </span>
+              </div>
+              <div className={styles.credentialRow}>
+                <span className={styles.credentialLabel}>Contraseña</span>
+                <span className={styles.credentialValue}>Sticode12.</span>
+              </div>
+            </div>
+          </div>
 
           <div className={styles.info}>
             <div className={styles.infoRow}>

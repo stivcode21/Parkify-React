@@ -36,6 +36,69 @@
   font-weight: 500;
 }
 
+.demoToast {
+  width: min(220px, 100%);
+  background: rgba(17, 54, 94, 0.884);
+  border: 1px dashed rgba(255, 255, 255, 0.35);
+  border-radius: 16px;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.25);
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  z-index: 20;
+  animation: demoPulse 2s ease-in-out infinite;
+}
+
+.demoHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.demoTitle {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.demoText {
+  margin: 0;
+  font-size: 0.7rem;
+  color: #e6efff;
+}
+
+.demoCredentials {
+  display: grid;
+  gap: 10px;
+}
+
+.credentialRow {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.credentialLabel {
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #b8d6ff;
+  font-weight: 600;
+}
+
+.credentialValue {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #ffffff;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: rgba(11, 31, 51, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
 .info {
   display: flex;
   flex-direction: column;
@@ -73,6 +136,16 @@
   color: #eaeaea;
   font-size: 1rem;
   text-align: center;
+}
+
+@keyframes demoPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
 }
 
 /* MEDIA QUERIES */
