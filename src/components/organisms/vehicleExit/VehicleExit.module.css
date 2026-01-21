@@ -29,6 +29,19 @@
   gap: 20px;
 }
 
+.ticketModalContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.ticketModalActions {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .searchSection {
   background: #151719;
   border-radius: 12px;

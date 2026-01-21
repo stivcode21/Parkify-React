@@ -26,6 +26,7 @@
 
 .headerRight {
   display: flex;
+  flex-direction: row-reverse;
   align-items: flex-end;
   gap: 20px;
   text-align: right;
@@ -117,6 +118,7 @@ thead th {
   .headerRight {
     width: 100%;
     align-items: center;
+    flex-direction: row;
   }
 
   .summary {

@@ -9,17 +9,14 @@
   width: 100%;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 12px;
-  padding: 20px;
-  background-color: #151719;
-  border: 1px solid #2d2d2d;
-  border-radius: 12px;
 }
 
 @media (width <= 764px) {
   .grid {
     width: 100%;
-    gap: 8px;
-    padding: 5px;
+    column-gap: 4px;
+    row-gap: 0px;
+    margin-left: -20px;
     grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
   }
 }
