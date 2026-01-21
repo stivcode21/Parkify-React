@@ -6,6 +6,7 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 clamp(16px, 3vw, 32px) 24px;
+  overflow: hidden;
 }
 
 .header {
@@ -86,24 +87,6 @@ thead th {
   background-color: transparent;
 }
 
-@media (width <= 768px) {
-  .header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .headerLeft {
-    width: 100%;
-    justify-content: flex-start;
-  }
-
-  .headerRight {
-    width: 100%;
-    align-items: flex-start;
-    text-align: left;
-  }
-}
-
 @media (width <= 1100px) {
   .headerRight {
     align-items: flex-start;
@@ -111,5 +94,32 @@ thead th {
 
   .title {
     text-align: left;
+  }
+}
+
+@media (width <= 768px) {
+  .layout {
+    padding: 10px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 0;
+    gap: 10px;
+  }
+
+  .headerLeft {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .headerRight {
+    width: 100%;
+    align-items: center;
+  }
+
+  .summary {
+    justify-content: flex-end;
   }
 }

@@ -56,7 +56,7 @@ const VehicleList = ({ showExit = true }) => {
         selected={vehicle?.placa}
         tiempoPasado={tiempoPasado?.texto}
         valorAPagar={valorAPagar}
-      />
+      />,
     );
   };
 
@@ -68,10 +68,11 @@ const VehicleList = ({ showExit = true }) => {
           <ParkifyLogov2 />
         </div>
         <div className={styles.headerRight}>
+          <h2 className={styles.title}>Lista de Vehiculos</h2>
+
           <div className={styles.summary}>
             <CounterVehicles vehicles={vehiculos} />
           </div>
-          <h2 className={styles.title}>Lista de Vehiculos</h2>
         </div>
       </header>
 

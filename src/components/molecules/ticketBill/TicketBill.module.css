@@ -1,6 +1,6 @@
 .box {
   width: 320px;
-  height: 400px;
+  max-height: 400px;
   background-color: #151719;
   border-radius: 12px;
   padding: 16px;
@@ -59,4 +59,14 @@
   font-weight: 900;
   text-align: center;
   font-size: 1.8rem;
+}
+
+@media (width <= 768px) {
+  .box {
+    width: 280px;
+  }
+  .placa {
+    font-size: 2rem;
+    height: 60px;
+  }
 }

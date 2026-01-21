@@ -51,6 +51,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 24px;
   z-index: 1;
   color: #ffffff;

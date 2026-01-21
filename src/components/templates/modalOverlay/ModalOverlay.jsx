@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import useModalStore from "@/store/ModalStore";
 import ParkifyLogov2 from "@/components/atoms/parkifyLogov2/ParkifyLogov2";
 
-const ModalOverlay = ({ title }) => {
+const ModalOverlay = () => {
   const { modalContent, closeModal } = useModalStore();
 
   if (!modalContent) return null;
