@@ -6,7 +6,7 @@
   font-family: "Chela One", system-ui;
   font-weight: 500;
   position: relative;
-  z-index: 2;
+  z-index: 1;
 }
 
 .strong {
