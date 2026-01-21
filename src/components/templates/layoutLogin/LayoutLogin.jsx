@@ -29,7 +29,7 @@ const LayoutLogin = ({ children }) => {
               </div>
               <div className={styles.credentialRow}>
                 <span className={styles.credentialLabel}>Contraseña</span>
-                <span className={styles.credentialValue}>Sticode12.</span>
+                <span className={styles.credentialValue}>Stivcode12.</span>
               </div>
             </div>
           </div>
