@@ -1,11 +1,10 @@
 import Button from "@/components/templates/button/Button";
 import styles from "./SignIn.module.css";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNotification } from "@/context/notificationProvider/notificationProvider";
 import { EyeClosedIcon, EyeIcon } from "lucide-react";
 import { useLoader } from "@/context/loaderProvider/LoaderProvider";
-import { checkAuth } from "@/utils/auth";
 import { buildApiUrl } from "@/utils/apiBase";
 
 const SignIn = () => {
@@ -36,15 +35,6 @@ const SignIn = () => {
     return true;
   };
 
-  useEffect(() => {
-    const verifySession = async () => {
-      const loggedIn = await checkAuth();
-      if (loggedIn) {
-        navigate("/dashboard"); // redirige si ya tiene cookie v�lida
-      }
-    };
-    verifySession();
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
