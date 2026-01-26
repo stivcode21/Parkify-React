@@ -1,5 +1,4 @@
 import styles from "./VehicleExit.module.css";
-import ParkifyLogov2 from "@/components/atoms/parkifyLogov2/ParkifyLogov2";
 import ButtonSend from "@/components/atoms/buttonSend/ButtonSend";
 import { useNotification } from "@/context/notificationProvider/notificationProvider";
 import TicketBill from "@/components/molecules/ticketBill/TicketBill";
@@ -10,19 +9,19 @@ import { formatDateTime } from "@/utils/formatDate";
 import { calculatePayment } from "@/utils/calculatePayment";
 import { buildApiUrl } from "@/utils/apiBase";
 import TicketModal from "@/components/templates/ticketModal/TicketModal";
+import { LogOut, Search } from "lucide-react";
 
-const VehicleExit = () => {
+const VehicleExit = ({ placaEntry, entry, isBtn }) => {
   const [dataVehiculo, setDataVehiculo] = useState(null);
   const [placa, setPlaca] = useState("");
   const [ticketOpen, setTicketOpen] = useState(false);
   const { toggleLoader } = useLoader();
   const notify = useNotification();
 
-  const entrada = formatDateTime(dataVehiculo?.fecha_entrada);
+  const entrada = formatDateTime(dataVehiculo?.fecha_entrada || entry);
   const salida = formatDateTime(new Date());
   const tiempoPasado = getElapsedTime(entrada);
   const valorAPagar = calculatePayment(entrada);
-  console.log("Tiempo pasado:", valorAPagar);
 
   const validateForm = () => {
     if (placa.trim().length !== 6) {
@@ -32,9 +31,12 @@ const VehicleExit = () => {
     return true;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e, entry) => {
+    console.log("handleSubmit called", entry);
     e.preventDefault();
-    if (!validateForm()) return;
+    {
+      !entry && !validateForm() && false;
+    }
 
     try {
       toggleLoader(true);
@@ -45,7 +47,7 @@ const VehicleExit = () => {
         },
         credentials: "include",
         body: JSON.stringify({
-          placa: placa.toUpperCase(),
+          placa: placa.toUpperCase() || entry.toUpperCase(),
         }),
       });
 
@@ -77,7 +79,7 @@ const VehicleExit = () => {
         },
         credentials: "include",
         body: JSON.stringify({
-          placa: dataVehiculo.placa,
+          placa: dataVehiculo.placa || placaEntry,
           total: valorAPagar,
         }),
       });
@@ -102,29 +104,36 @@ const VehicleExit = () => {
   };
 
   return (
-    <div className={styles.layout}>
-      <h2 className={styles.title}>Salida de Vehiculos</h2>
-
-      <div className={styles.body}>
-        <div className={styles.searchSection}>
-          <div className={styles.field}>
-            <span className={styles.labelPlaca}>Placa</span>
+    <div className={styles.wrapper}>
+      {isBtn ? (
+        <button
+          className={styles.logoutIcon}
+          onClick={(e) => handleSubmit(e, placaEntry)}
+        >
+          <LogOut />
+        </button>
+      ) : (
+        <form className={styles.searchBar} onSubmit={handleSubmit}>
+          <div className={styles.searchField}>
+            <Search className={styles.searchIcon} />
             <input
-              className={styles.input}
+              className={styles.searchInput}
               type="text"
               value={placa}
-              placeholder="_ _ _"
+              placeholder="Ingresa placa de vehiculo"
               onChange={(e) => setPlaca(e.target.value)}
               maxLength={6}
               id="placa"
-              autoFocus
+              aria-label="Buscar por placa"
+              autoComplete="off"
             />
           </div>
-          <div className={styles.actions}>
-            <ButtonSend name="Buscar" onClick={handleSubmit} />
-          </div>
-        </div>
-      </div>
+          <button className={styles.searchButton} type="submit">
+            Buscar
+          </button>
+        </form>
+      )}
+
       {ticketOpen ? (
         <TicketModal onClose={() => setTicketOpen(false)}>
           <div className={styles.ticketModalContent}>

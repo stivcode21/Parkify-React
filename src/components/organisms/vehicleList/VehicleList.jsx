@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import styles from "./VehicleList.module.css";
-import ParkifyLogov2 from "@/components/atoms/parkifyLogov2/ParkifyLogov2";
 import CounterVehicles from "@/components/molecules/counterVehicles/CounterVehicles";
 import { formatDateTime } from "@/utils/formatDate";
 import { getElapsedTime } from "@/utils/getElapsedTime";
@@ -11,8 +10,13 @@ import { useNotification } from "@/context/notificationProvider/notificationProv
 import { useLoader } from "@/context/loaderProvider/LoaderProvider";
 import ExitModal from "@/components/atoms/exitModal/ExitModal";
 import TicketModal from "@/components/templates/ticketModal/TicketModal";
+import VehicleExit from "@/components/organisms/vehicleExit/VehicleExit";
 
-const VehicleList = ({ showExit = true }) => {
+const VehicleList = ({
+  showExit = true,
+  onVehiclesLoaded,
+  showHeader = true,
+}) => {
   const [vehiculos, setVehiculos] = useState([]);
   const [selected, setSelected] = useState(null);
   const [ticketData, setTicketData] = useState(null);
@@ -33,7 +37,11 @@ const VehicleList = ({ showExit = true }) => {
           return;
         }
         const data = await res.json();
-        setVehiculos(data.vehicles);
+        const vehiclesList = data?.vehicles || [];
+        setVehiculos(vehiclesList);
+        if (onVehiclesLoaded) {
+          onVehiclesLoaded(vehiclesList);
+        }
       } catch (error) {
         console.error("Error al obtener vehiculos:", error);
         notify("Error", "Error al obtener los vehiculos.");
@@ -63,7 +71,7 @@ const VehicleList = ({ showExit = true }) => {
   };
 
   return (
-    <div className={styles.layout}>
+    <div className={`${styles.layout} ${showHeader ? styles.fullHeight : ""}`}>
       {ticketData ? (
         <TicketModal onClose={handleCloseTicket}>
           <TicketBill
@@ -76,44 +84,54 @@ const VehicleList = ({ showExit = true }) => {
           />
         </TicketModal>
       ) : null}
-      <header className={styles.header}>
-        <div className={styles.headerLeft}>
-          {showExit ? <ExitModal route="/dashboard" /> : null}
-          <ParkifyLogov2 />
-        </div>
-        <div className={styles.headerRight}>
-          <h2 className={styles.title}>Lista de Vehiculos</h2>
+      {showHeader ? (
+        <header className={styles.header}>
+          <div className={styles.headerLeft}>
+            {showExit ? <ExitModal route="/dashboard" /> : null}
+          </div>
+        </header>
+      ) : null}
 
-          <div className={styles.summary}>
-            <CounterVehicles vehicles={vehiculos} />
+      <div className={`${styles.listPanel}`}>
+        <div className={styles.listTopbar}>
+          <div className={styles.secondaryActions}>
+            <VehicleExit />
+          </div>
+          <div className={styles.listMeta}>
+            <span className={styles.listTitle}>Lista de Vehiculos</span>
+            <span className={styles.activeBadge}>
+              Activos {vehiculos.length}
+            </span>
+            <CounterVehicles vehicles={vehiculos} variant="compact" />
           </div>
         </div>
-      </header>
-
-      <div className={styles.tableCard}>
-        <table>
-          <thead>
-            <tr className={styles.headerRow}>
-              <th>Placa</th>
-              <th>Vehiculo</th>
-              <th>Casillero</th>
-              <th>Fecha/Entrada</th>
-            </tr>
-          </thead>
-          <tbody>
-            {vehiculos.map((vehicle, index) => (
-              <RowListVehicles
-                selected={selected}
-                onRowClick={() => handleOpenDetails(vehicle)}
-                placaID={vehicle.placa}
-                vehiculo={vehicle.tipo}
-                fecha={formatDateTime(vehicle.fecha_entrada)}
-                casillero={vehicle?.id_casillero || "-"}
-                key={index}
-              />
-            ))}
-          </tbody>
-        </table>
+        <div className={styles.listBody}>
+          <div className={styles.tableCard}>
+            <table>
+              <thead>
+                <tr className={styles.headerRow}>
+                  <th>Placa</th>
+                  <th>Vehiculo</th>
+                  <th>Casillero</th>
+                  <th>Fecha/Entrada</th>
+                </tr>
+              </thead>
+              <tbody>
+                {vehiculos.map((vehicle, index) => (
+                  <RowListVehicles
+                    selected={selected}
+                    onRowClick={() => handleOpenDetails(vehicle)}
+                    placaID={vehicle.placa}
+                    vehiculo={vehicle.tipo}
+                    fecha={formatDateTime(vehicle.fecha_entrada)}
+                    casillero={vehicle?.id_casillero || "-"}
+                    key={index}
+                  />
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   );

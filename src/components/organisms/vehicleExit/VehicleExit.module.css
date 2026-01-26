@@ -1,32 +1,88 @@
-.layout {
+.wrapper {
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  gap: 24px;
+  justify-content: flex-start;
 }
 
-.title {
-  color: #fff;
-  font-size: 1.5rem;
-  text-align: center;
-  text-transform: uppercase;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-}
-
-.body {
+.searchBar {
   display: flex;
-  justify-content: center;
-}
-
-.ticketSection {
-  background: #151719;
-  border-radius: 12px;
-  border: 1px solid #2d2d2d;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
+  width: min(460px, 100%);
+}
+
+.searchField {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 42px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: #12161b;
+  border: 1px solid #2a323b;
+  color: #8ea1b6;
+}
+
+.searchIcon {
+  width: 18px;
+  height: 18px;
+  color: #8ea1b6;
+  flex-shrink: 0;
+}
+
+.logoutIcon {
+  right: 10px;
+  top: 8px;
+  color: #ff9a9a;
+}
+
+.logoutIcon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.searchInput {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #f5f7fa;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.searchInput::placeholder {
+  color: #8ea1b6;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.searchButton {
+  border: none;
+  background: linear-gradient(335deg, #00366b 20%, #0059b3 80%);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  height: 42px;
+  padding: 0 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    background-position 0.2s ease;
+}
+
+.searchButton:hover {
+  background-position: right center;
+  transform: translateY(-1px);
+}
+
+.searchButton:active {
+  transform: translateY(0);
 }
 
 .ticketModalContent {
@@ -40,68 +96,4 @@
   width: 100%;
   display: flex;
   justify-content: center;
-}
-
-.searchSection {
-  background: #151719;
-  border-radius: 12px;
-  border: 1px solid #2d2d2d;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  min-width: 320px;
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
-
-.input {
-  background-color: #2d2d2d;
-  border: none;
-  width: 100%;
-  max-width: 240px;
-  border-radius: 12px;
-  padding: 10px 12px;
-  color: #007fff;
-  outline: 1px solid #000000;
-  font-weight: bold;
-  text-align: center;
-  text-transform: uppercase;
-  font-size: 2.4rem;
-  letter-spacing: 0.08em;
-}
-
-.input:focus {
-  outline: 1px solid #007fff;
-}
-
-.labelPlaca {
-  color: #fff;
-  font-size: 1rem;
-  font-weight: bold;
-}
-
-.actions {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding-top: 8px;
-  border-top: 1px solid #2d2d2d;
-}
-
-@media (width <= 900px) {
-  .title {
-    text-align: left;
-  }
-
-  .searchSection {
-    min-width: auto;
-    width: 100%;
-  }
 }

@@ -4,6 +4,7 @@ import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import UserSignIn from "../pages/userSignIn/UserSignIn";
 import VehicleList from "../components/organisms/vehicleList/VehicleList";
 import HistoryLog from "../components/organisms/historyLog/HistoryLog";
+import Finance from "@/pages/finance/Finance";
 import { useEffect } from "react";
 import { checkAuth } from "@/utils/auth";
 import ModalOverlay from "@/components/templates/modalOverlay/ModalOverlay";
@@ -39,6 +40,7 @@ const AppRouter = () => {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/list" element={<VehicleList />} />
         <Route path="/history" element={<HistoryLog />} />
+        <Route path="/finanzas" element={<Finance />} />
       </Routes>
     </>
   );
