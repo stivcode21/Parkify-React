@@ -1,6 +1,6 @@
 import styles from "./CounterVehicles.module.css";
 
-const CounterVehicles = ({ vehicles }) => {
+const CounterVehicles = ({ vehicles, variant = "default" }) => {
   const vehiclesCount = vehicles.filter(
     (vehicle) => vehicle.tipo === "carro"
   ).length;
@@ -10,7 +10,11 @@ const CounterVehicles = ({ vehicles }) => {
   ).length;
 
   return (
-    <div className={styles.container}>
+    <div
+      className={`${styles.container} ${
+        variant === "compact" ? styles.compact : ""
+      }`}
+    >
       <div className={styles.counter}>
         <svg
           xmlns="http://www.w3.org/2000/svg"

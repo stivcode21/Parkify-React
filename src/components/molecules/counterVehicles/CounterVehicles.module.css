@@ -6,6 +6,10 @@
   margin: 0;
 }
 
+.compact {
+  gap: 6px;
+}
+
 .counter {
   display: flex;
   justify-content: center;
@@ -17,14 +21,27 @@
   border-radius: 999px;
 }
 
+.compact .counter {
+  padding: 4px 12px;
+}
+
 .counter svg {
   width: 28px;
   height: 28px;
   color: #007fff;
 }
 
+.compact .counter svg {
+  width: 18px;
+  height: 18px;
+}
+
 .span {
   color: #fff;
   font-size: 1.2rem;
   font-weight: 600;
+}
+
+.compact .span {
+  font-size: 0.85rem;
 }

@@ -1,3 +1,4 @@
+import VehicleExit from "../../organisms/vehicleExit/VehicleExit";
 import styles from "./RowListVehicles.module.css";
 
 const RowListVehicles = ({
@@ -15,13 +16,14 @@ const RowListVehicles = ({
   const isClickable = Boolean(setSelected || onRowClick);
   const handleClick = () => {
     if (setSelected) setSelected(placaID);
+
     if (onRowClick) onRowClick();
   };
 
   return (
     <tr
       onClick={isClickable ? handleClick : undefined}
-      className={`${selected === placaID ? styles.selected : ""} ${
+      className={`${styles.container} ${selected === placaID ? styles.selected : ""} ${
         isClickable ? styles.clickable : ""
       }`}
     >
@@ -39,6 +41,12 @@ const RowListVehicles = ({
           <td>{vehiculo}</td>
           <td>{casillero}</td>
           <td>{fecha}</td>
+          <span
+            className={styles.exitIcon}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <VehicleExit isBtn={true} placaEntry={placaID} />
+          </span>
         </>
       )}
     </tr>
