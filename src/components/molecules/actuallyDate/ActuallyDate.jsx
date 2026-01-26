@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./ActuallyDate.module.css";
 
-const ActuallyDate = () => {
+const ActuallyDate = ({ variant = "default" }) => {
   const [fecha, setFecha] = useState("");
 
   useEffect(() => {
@@ -21,7 +21,11 @@ const ActuallyDate = () => {
     setFecha(`${dia}/${mes}/${año}`);
   }, []);
 
-  return <p className={styles.date}>{fecha}</p>;
+  return (
+    <p className={`${styles.date} ${variant === "compact" ? styles.compact : ""}`}>
+      {fecha}
+    </p>
+  );
 };
 
 export default ActuallyDate;

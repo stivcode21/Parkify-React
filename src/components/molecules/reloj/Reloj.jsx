@@ -1,7 +1,7 @@
 import styles from "./Reloj.module.css";
 import useHoraColombia from "@/hooks/useHoraColombia";
 
-const Reloj = () => {
+const Reloj = ({ variant = "default" }) => {
   const horaActual = useHoraColombia();
   const horaFormateada = (() => {
     if (!horaActual) return "";
@@ -16,7 +16,11 @@ const Reloj = () => {
     }`;
   })();
 
-  return <p className={styles.hour}>{horaFormateada}</p>;
+  return (
+    <p className={`${styles.hour} ${variant === "compact" ? styles.compact : ""}`}>
+      {horaFormateada}
+    </p>
+  );
 };
 
 export default Reloj;
