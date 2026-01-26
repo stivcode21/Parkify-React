@@ -1,51 +1,224 @@
-.header {
+.body {
   width: 100%;
-  min-height: 32px;
-  color: #ffffff;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 10;
-  font-size: clamp(0.95rem, 1.4vw, 1.1rem);
-  font-weight: 600;
-}
-
-.bg {
-  width: 100%;
-  height: 100vh;
-  box-sizing: border-box;
-  background: #1111115d
-    url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0.5' y='0.5' width='39' height='39' stroke='%23333333' stroke-width='1'/%3E%3C/svg%3E");
+  min-height: 100vh;
+  color: #f5f7fa;
 }
 
 .container {
-  width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(30px, 20vh, 60px);
+  padding: clamp(16px, 2.4vw, 24px);
+  max-width: 1600px;
+  margin: 0 auto;
   box-sizing: border-box;
-  display: grid;
-  grid-template-rows: auto auto auto 1fr auto;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-items: center;
-  gap: clamp(8px, 2vh, 16px);
-  padding: clamp(12px, 2vh, 20px) clamp(16px, 3vw, 32px)
-    clamp(16px, 2vh, 24px);
+  font-size: 0.95rem;
+  font-weight: 600;
 }
 
-.footer {
-  position: static;
-  justify-self: end;
-  color: #eaeaea;
-  font-size: clamp(11px, 1.1vw, 14px);
+.main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.auto {
-  width: clamp(120px, 18vh, 200px);
-  height: clamp(120px, 18vh, 200px);
+.hero {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: clamp(16px, 2vh, 24px);
+  text-align: center;
+  margin-bottom: clamp(12px, 2vh, 20px);
+}
+
+.logoRow {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 2vw, 20px);
+}
+
+.logoRow2 {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+
+.heroIcon {
+  width: clamp(50px, 8vw, 70px);
+  height: auto;
+}
+
+.primaryActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(12px, 1.6vw, 18px);
+}
+
+.content {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(240px, 320px) minmax(0, 1fr);
+  gap: clamp(16px, 2vw, 24px);
+  align-items: start;
+}
+
+.lockersPanel {
+  background: rgba(16, 20, 25, 0.92);
+  border: 1px solid #232932;
+  border-radius: 18px;
+  padding: 16px;
+  height: fit-content;
+}
+
+.dateContainer {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.panelHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.panelTitle {
+  margin: 0;
+  font-size: 0.9rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.badges {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  font-size: 0.72rem;
+  color: #9aa6b5;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid #2a323b;
+  background: #12171d;
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid #2a323b;
+  background: #12171d;
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  flex: 0 0 auto;
+}
+
+.dotBusy {
+  background: #ff0000;
+}
+
+.dotActive {
+  background: #00ff2f;
+}
+
+.statusCount {
+  font-size: 0.72rem;
+  color: #9aa6b5;
+}
+
+.panelBody {
+  max-height: clamp(380px, 48vh, 560px);
+  overflow: auto;
+  padding-right: 4px;
+}
+
+@media (width >= 1000px) {
+  .content {
+    flex: 1;
+    min-height: 0;
+    align-items: stretch;
+  }
+
+  .lockersPanel {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+  }
+
+  .panelBody {
+    flex: 1;
+    min-height: 0;
+    max-height: none;
+  }
+}
+
+@media (width <= 1100px) {
+  .content {
+    grid-template-columns: 0.6fr 1fr;
+  }
+
+  .panelBody {
+    max-height: none;
+  }
+}
+
+@media (width >= 1440px) {
+  .content {
+    grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+  }
+
+  .lockersPanel {
+    padding: 18px;
+  }
 }
 
 @media (width <= 768px) {
-  .auto {
-    width: clamp(110px, 20vh, 170px);
-    height: clamp(110px, 20vh, 170px);
+  .logoRow {
+    flex-direction: column;
+    display: none;
+  }
+  .logoRow2 {
+    display: flex;
+  }
+
+  .content {
+    display: none;
+  }
+  .hero {
+    margin-top: 40px;
+  }
+}
+
+@media (width <= 520px) {
+  .primaryActions {
+    gap: 12px;
   }
 }
