@@ -1,21 +1,24 @@
 .button {
-  width: clamp(170px, 20vw, 240px);
-  height: clamp(64px, 15vh, 84px);
-  background: linear-gradient(335deg, #00366b 20%, rgba(0, 89, 179, 1) 80%);
+  width: auto;
+  min-width: 120px;
+  height: 48px;
+  background: linear-gradient(335deg, #00366b 20%, #0059b3 80%);
   background-size: 100% 100%;
   border: 2px solid #00366b;
   color: #ffffff;
   font-weight: 800;
-  font-size: clamp(0.85rem, 1.6vw, 1.05rem);
+  font-size: 0.72rem;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  padding: 0 28px;
-  border-radius: 12px;
+  letter-spacing: 0.1em;
+  padding: 0 16px;
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  transition: transform 0.15s ease, background-position 0.2s ease,
+  transition:
+    transform 0.15s ease,
+    background-position 0.2s ease,
     border-color 0.2s ease;
 }
 
@@ -33,33 +36,4 @@
 .button:focus-visible {
   outline: 2px solid #007fff;
   outline-offset: 2px;
-}
-
-.salida {
-  background: linear-gradient(335deg, #6e0000 20%, rgba(227, 0, 0, 1) 80%);
-  background-size: 100% 100%;
-  border: 2px solid #6e0000;
-}
-
-.salida:hover {
-  background-size: 140% 100%;
-  background-position: right center;
-  border: 2px solid #ff0000;
-  transform: translateY(-1px);
-}
-
-@media (width <= 900px) {
-  .button {
-    width: 200px;
-    height: 80px;
-    font-size: 1rem;
-  }
-}
-
-@media (width <= 420px) {
-  .button {
-    width: 170px;
-    height: 75px;
-    font-size: 0.8rem;
-  }
 }
