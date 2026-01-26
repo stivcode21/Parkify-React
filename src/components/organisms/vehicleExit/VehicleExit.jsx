@@ -92,6 +92,7 @@ const VehicleExit = ({ placaEntry, entry, isBtn }) => {
       }
 
       notify("Success", "Vehiculo dado de salida correctamente.");
+      window.dispatchEvent(new CustomEvent("vehicles:updated"));
       setTicketOpen(false);
       setDataVehiculo(null);
       setPlaca("");

@@ -67,6 +67,7 @@ const VehicleEntry = () => {
       }
 
       notify("Success", data.message || "Vehiculo ingresado correctamente.");
+      window.dispatchEvent(new CustomEvent("vehicles:updated"));
 
       // Limpiar formulario
       setPlaca("");

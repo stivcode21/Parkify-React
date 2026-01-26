@@ -12,44 +12,40 @@ import ExitModal from "@/components/atoms/exitModal/ExitModal";
 import TicketModal from "@/components/templates/ticketModal/TicketModal";
 import VehicleExit from "@/components/organisms/vehicleExit/VehicleExit";
 
-const VehicleList = ({
-  showExit = true,
-  onVehiclesLoaded,
-  showHeader = true,
-}) => {
+const VehicleList = ({ showExit = true, showHeader = true }) => {
   const [vehiculos, setVehiculos] = useState([]);
   const [selected, setSelected] = useState(null);
   const [ticketData, setTicketData] = useState(null);
   const { toggleLoader } = useLoader();
   const notify = useNotification();
 
-  useEffect(() => {
-    const fetchVehiculos = async () => {
-      toggleLoader(true);
+  const refreshVehicles = async () => {
+    toggleLoader(true);
 
-      try {
-        const res = await fetch(buildApiUrl("vehicles/list"), {
-          method: "GET",
-          credentials: "include",
-        });
-        if (!res.ok) {
-          notify("Error", "No se pudieron obtener los vehiculos.");
-          return;
-        }
-        const data = await res.json();
-        const vehiclesList = data?.vehicles || [];
-        setVehiculos(vehiclesList);
-        if (onVehiclesLoaded) {
-          onVehiclesLoaded(vehiclesList);
-        }
-      } catch (error) {
-        console.error("Error al obtener vehiculos:", error);
-        notify("Error", "Error al obtener los vehiculos.");
+    try {
+      const res = await fetch(buildApiUrl("vehicles/list"), {
+        method: "GET",
+        credentials: "include",
+      });
+      if (!res.ok) {
+        notify("Error", "No se pudieron obtener los vehiculos.");
+        return;
       }
-      toggleLoader(false);
-    };
+      const data = await res.json();
+      const vehiclesList = data?.vehicles || [];
+      setVehiculos(vehiclesList);
+    } catch (error) {
+      console.error("Error al obtener vehiculos:", error);
+      notify("Error", "Error al obtener los vehiculos.");
+    }
+    toggleLoader(false);
+  };
 
-    fetchVehiculos();
+  useEffect(() => {
+    refreshVehicles();
+    const handler = () => refreshVehicles();
+    window.addEventListener("vehicles:updated", handler);
+    return () => window.removeEventListener("vehicles:updated", handler);
   }, []);
 
   const handleOpenDetails = (vehicle) => {
