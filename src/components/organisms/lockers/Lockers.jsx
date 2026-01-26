@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useLoader } from "@/context/loaderProvider/LoaderProvider";
 import { buildApiUrl } from "@/utils/apiBase";
 
-const Lockers = () => {
+const Lockers = ({ onLockersLoaded }) => {
   const [lockers, setLockers] = useState([]);
   const notify = useNotification();
   const { toggleLoader } = useLoader();
@@ -27,7 +27,11 @@ const Lockers = () => {
 
         const data = await res.json();
         // console.log("Lockers obtenidos:", data.lockers);
-        setLockers(data.lockers);
+        const lockersList = data?.lockers || [];
+        setLockers(lockersList);
+        if (onLockersLoaded) {
+          onLockersLoaded(lockersList);
+        }
       } catch (error) {
         console.error("Error al obtener lockers:", error);
         notify("Error", "Error al obtener casilleros.");

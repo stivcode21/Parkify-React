@@ -1,12 +1,12 @@
 .locker {
-  width: 115px;
-  height: 140px;
+  width: 52px;
+  height: 58px;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
-  border: 2px solid #000000;
-  background-color: #2d2d2d;
+  border: 2px solid #0f0f10;
+  background-color: #094582;
 }
 
 .off {
@@ -14,37 +14,39 @@
 }
 
 .chart {
-  width: 60px;
-  height: 25px;
+  width: 24px;
+  height: 14px;
   position: absolute;
   z-index: 10;
-  top: 10px;
-  background: #000000;
+  top: 4px;
+  right: 4px;
+  background: #000000d7;
+  border-radius: 2px;
 }
 
 .chart p {
-  font-size: 20px;
+  font-size: 11px;
   color: #ffffff;
-  font-weight: 800;
+  font-weight: 600;
   text-align: center;
   margin: 0;
 }
 
 .lock {
   width: 3px;
-  height: 35px;
+  height: 20px;
   position: absolute;
-  top: 60px;
-  left: 10px;
-  border: 2px solid #fff;
+  top: 30px;
+  left: 4px;
+  border: 1.5px solid #fff;
 }
 
 .circle {
-  width: 12px;
-  height: 12px;
+  width: 8px;
+  height: 8px;
   position: absolute;
-  top: 10px;
-  left: 8px;
+  top: 5px;
+  left: 4px;
   border-radius: 100%;
 }
 
@@ -55,21 +57,18 @@
 .busy {
   background: #ff0000;
 }
+
 .bars {
-  width: 60px;
+  width: 20px;
   position: absolute;
-  top: 60px;
-  left: 28px;
+  top: 36px;
+  left: 16px;
   background-color: #fff;
-  border: 2px solid #fff;
+  border: 1px solid #fff;
 }
 
 .bars2 {
-  top: 68px;
-}
-
-.bars3 {
-  top: 76px;
+  top: 40px;
 }
 
 .description {
@@ -77,22 +76,18 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 110px;
-  gap: 10px;
-}
-
-.description p {
-  margin: 0;
 }
 
 .placa {
-  font-size: 20px;
-  font-weight: 800;
-  color: #fff;
+  font-size: 9px;
+  font-weight: 600;
+  color: #036bea;
+  margin-left: 6px;
+  margin-top: 26px;
 }
 
 @media (width <= 764px) {
   .locker {
-    scale: 0.8;
+    scale: 0.95;
   }
 }
