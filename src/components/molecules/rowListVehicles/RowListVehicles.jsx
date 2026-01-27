@@ -41,12 +41,9 @@ const RowListVehicles = ({
           <td>{vehiculo}</td>
           <td>{casillero}</td>
           <td>{fecha}</td>
-          <span
-            className={styles.exitIcon}
-            onClick={(e) => e.stopPropagation()}
-          >
+          <td className={styles.exitCell} onClick={(e) => e.stopPropagation()}>
             <VehicleExit isBtn={true} placaEntry={placaID} />
-          </span>
+          </td>
         </>
       )}
     </tr>
