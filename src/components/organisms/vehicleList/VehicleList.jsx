@@ -110,6 +110,7 @@ const VehicleList = ({ showExit = true, showHeader = true }) => {
                   <th>Vehiculo</th>
                   <th>Casillero</th>
                   <th>Fecha/Entrada</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>

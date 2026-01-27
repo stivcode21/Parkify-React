@@ -35,11 +35,20 @@
   right: 10px;
   top: 8px;
   color: #ff9a9a;
+  border: 1px solid transparent;
+  padding: 6px 6px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.logoutIcon:hover {
+  background: rgba(255, 82, 82, 0.12);
+  border-color: rgba(255, 82, 82, 0.4);
 }
 
 .logoutIcon svg {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
 }
 
 .searchInput {

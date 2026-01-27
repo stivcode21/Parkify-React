@@ -94,14 +94,14 @@ input[type="radio"] {
 }
 
 .input {
-  background-color: #2d2d2d;
+  background-color: #2a3742;
   border: none;
   width: 100%;
   max-width: 240px;
   border-radius: 12px;
   padding: 10px 12px;
   color: #007fff;
-  outline: 1px solid #000000;
+  outline: 1px solid #2d4660;
   font-weight: bold;
   text-align: center;
   text-transform: uppercase;

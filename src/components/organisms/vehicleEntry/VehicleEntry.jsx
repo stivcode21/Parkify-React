@@ -147,7 +147,6 @@ const VehicleEntry = () => {
               autoComplete="off"
               onChange={(e) => setPlaca(e.target.value)}
               id="placa"
-              autoFocus
             />
           </div>
         </div>
