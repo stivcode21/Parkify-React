@@ -1,8 +1,13 @@
-td {
-  padding: 12px 16px;
+.container td {
+  padding: 2px 12px;
   text-align: center;
   border-bottom: 1px solid rgba(247, 174, 174, 0.1);
   background-color: transparent;
+  line-height: 1.1;
+}
+
+.container {
+  height: auto;
 }
 
 .exitCell {
