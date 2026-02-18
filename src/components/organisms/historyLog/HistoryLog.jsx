@@ -38,52 +38,54 @@ const HistoryLog = ({ showExit = true }) => {
   }, []);
 
   return (
-    <div className={styles.layout}>
-      <header className={styles.header}>
-        <div className={styles.headerLeft}>
-          {showExit ? <ExitModal route="/dashboard" /> : null}
-        </div>
-      </header>
-      <div className={styles.listPanel}>
-        <div className={styles.listTopbar}>
-          <div className={styles.secondaryActions}></div>
-          <div className={styles.listMeta}>
-            <span className={styles.listTitle}>Historial de registro</span>
-            <span className={styles.activeBadge}>
-              Registros {vehiculos.length}
-            </span>
+    <section className={styles.container}>
+      <div className={styles.layout}>
+        <header className={styles.header}>
+          <div className={styles.headerLeft}>
+            {showExit ? <ExitModal route="/dashboard" /> : null}
           </div>
-        </div>
-        <div className={styles.listBody}>
-          <div className={styles.tableCard}>
-            <table>
-              <thead>
-                <tr className={styles.headerRow}>
-                  <th>Placa</th>
-                  <th>Vehiculo</th>
-                  <th>Fecha/Entrada</th>
-                  <th>Fecha/Salida</th>
-                  <th>Pago</th>
-                </tr>
-              </thead>
-              <tbody>
-                {vehiculos.map((vehicle, index) => (
-                  <RowListVehicles
-                    history={true}
-                    placaID={vehicle.placa}
-                    vehiculo={vehicle.tipo}
-                    fecha={formatDateTime(vehicle.fecha_entrada)}
-                    salida={formatDateTime(vehicle.fecha_salida)}
-                    pago={vehicle.monto_total}
-                    key={index}
-                  />
-                ))}
-              </tbody>
-            </table>
+        </header>
+        <div className={styles.listPanel}>
+          <div className={styles.listTopbar}>
+            <div className={styles.secondaryActions}></div>
+            <div className={styles.listMeta}>
+              <span className={styles.listTitle}>Historial de registro</span>
+              <span className={styles.activeBadge}>
+                Registros {vehiculos.length}
+              </span>
+            </div>
+          </div>
+          <div className={styles.listBody}>
+            <div className={styles.tableCard}>
+              <table>
+                <thead>
+                  <tr className={styles.headerRow}>
+                    <th>Placa</th>
+                    <th>Vehiculo</th>
+                    <th>Fecha/Entrada</th>
+                    <th>Fecha/Salida</th>
+                    <th>Pago</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {vehiculos.map((vehicle, index) => (
+                    <RowListVehicles
+                      history={true}
+                      placaID={vehicle.placa}
+                      vehiculo={vehicle.tipo}
+                      fecha={formatDateTime(vehicle.fecha_entrada)}
+                      salida={formatDateTime(vehicle.fecha_salida)}
+                      pago={vehicle.monto_total}
+                      key={index}
+                    />
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
