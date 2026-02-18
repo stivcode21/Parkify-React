@@ -9,16 +9,7 @@ body {
 }
 
 body {
-  background:
-    radial-gradient(circle at top, rgba(0, 127, 255, 0.18), transparent 50%),
-    linear-gradient(
-      135deg,
-      rgba(8, 10, 12, 0.98) 0%,
-      rgba(9, 12, 16, 0.94) 60%
-    ),
-    #0c0f14
-      url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0.5' y='0.5' width='39' height='39' stroke='%23242a31' stroke-width='1'/%3E%3C/svg%3E");
-  background-size: cover;
+  background-color: #0b0f14;
 }
 
 button {
@@ -56,18 +47,4 @@ button {
 
 *::-webkit-scrollbar-thumb:hover {
   background-color: #4d5b6b;
-}
-
-@media (width <= 768px) {
-  body {
-    background:
-      radial-gradient(circle at top, rgba(0, 127, 255, 0.18), transparent 20%),
-      linear-gradient(
-        135deg,
-        rgba(8, 10, 12, 0.98) 0%,
-        rgba(9, 12, 16, 0.94) 60%
-      ),
-      #0c0f14
-        url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0.5' y='0.5' width='39' height='39' stroke='%23242a31' stroke-width='1'/%3E%3C/svg%3E");
-  }
 }
