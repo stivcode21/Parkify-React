@@ -15,12 +15,14 @@ import { useNotification } from "@/context/notificationProvider/notificationProv
 import { useLoader } from "@/context/loaderProvider/LoaderProvider";
 import ExitModal from "@/components/atoms/exitModal/ExitModal";
 
+// Convierte cualquier valor de monto a numero seguro (0 si es invalido).
 const parseAmount = (value) => {
   if (value === null || value === undefined) return 0;
   const numeric = Number(String(value).replace(/[^\d.-]/g, ""));
   return Number.isFinite(numeric) ? numeric : 0;
 };
 
+// Formatea un numero como moneda COP (sin decimales).
 const formatCurrency = (value) =>
   new Intl.NumberFormat("es-CO", {
     style: "currency",
@@ -28,6 +30,7 @@ const formatCurrency = (value) =>
     maximumFractionDigits: 0,
   }).format(value || 0);
 
+// Convierte una fecha a una llave YYYY-MM-DD para agrupar por dia.
 const dateKey = (date) => {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -35,9 +38,11 @@ const dateKey = (date) => {
   return `${year}-${month}-${day}`;
 };
 
+// Nombre corto del dia en espanol (0=Dom, 6=Sab).
 const dayLabel = (date) =>
   ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"][date.getDay()];
 
+// Intenta parsear una fecha; si es invalida devuelve null.
 const safeDate = (value) => {
   if (!value) return null;
   const date = new Date(value);
@@ -45,6 +50,7 @@ const safeDate = (value) => {
   return date;
 };
 
+// Contenedor que mide su ancho/alto y se lo pasa al chart para que sea responsivo.
 const ChartFrame = ({ height, children }) => {
   const ref = useRef(null);
   const [size, setSize] = useState({ width: 0, height });
@@ -53,6 +59,7 @@ const ChartFrame = ({ height, children }) => {
     const element = ref.current;
     if (!element) return undefined;
 
+    // Lee dimensiones del contenedor y actualiza estado.
     const update = (rect) => {
       const nextWidth = rect?.width || element.clientWidth || 0;
       const nextHeight = rect?.height || element.clientHeight || height || 0;
@@ -61,6 +68,7 @@ const ChartFrame = ({ height, children }) => {
 
     update(element.getBoundingClientRect());
 
+    // Observa cambios de tamaño para re-renderizar el chart.
     if (typeof ResizeObserver === "undefined") return undefined;
 
     const observer = new ResizeObserver((entries) => {
@@ -102,6 +110,7 @@ const Finance = () => {
         }
 
         const data = await res.json();
+        // Guardamos solo el arreglo esperado.
         setRecords(Array.isArray(data.vehicles) ? data.vehicles : []);
       } catch (error) {
         console.error("Error al obtener finanzas:", error);
@@ -112,10 +121,10 @@ const Finance = () => {
     };
 
     fetchRecords();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const analytics = useMemo(() => {
+    // Normaliza registros: monto numerico + fecha de salida valida.
     const completed = records
       .map((record) => {
         const amount = parseAmount(record.monto_total);
@@ -127,8 +136,10 @@ const Finance = () => {
           exitDate,
         };
       })
+      // Solo consideramos tickets cerrados (con fecha de salida).
       .filter((record) => record.exitDate);
 
+    // Metricas globales.
     const totalRevenue = completed.reduce(
       (sum, record) => sum + record.amount,
       0,
@@ -137,8 +148,10 @@ const Finance = () => {
     const totalTickets = completed.length;
     const avgTicket = totalTickets ? totalRevenue / totalTickets : 0;
 
+    // Acumuladores por dia (YYYY-MM-DD).
     const revenueByDay = new Map();
     const ticketsByDay = new Map();
+
     completed.forEach((record) => {
       const exitKey = record.exitDate ? dateKey(record.exitDate) : null;
       if (!exitKey) return;
@@ -149,6 +162,7 @@ const Finance = () => {
       ticketsByDay.set(exitKey, (ticketsByDay.get(exitKey) || 0) + 1);
     });
 
+    // Crea un arreglo de los ultimos 7 dias (incluye hoy).
     const dailyStats = Array.from({ length: 7 }, (_, index) => {
       const day = new Date();
       day.setDate(day.getDate() - (6 - index));
@@ -161,6 +175,7 @@ const Finance = () => {
     });
     const todayRevenue = dailyStats[6]?.total || 0;
 
+    // Total del mes calendario actual.
     const now = new Date();
     const currentMonth = now.getMonth();
     const currentYear = now.getFullYear();
@@ -176,6 +191,7 @@ const Finance = () => {
       return sum;
     }, 0);
 
+    // Suma de la semana (los 7 dias del arreglo).
     const weekRevenue = dailyStats.reduce((sum, day) => sum + day.total, 0);
 
     return {
@@ -188,6 +204,7 @@ const Finance = () => {
     };
   }, [records]);
 
+  // Fecha de actualizacion mostrada en el header.
   const updatedAt = new Date().toLocaleDateString("es-CO", {
     day: "2-digit",
     month: "short",
