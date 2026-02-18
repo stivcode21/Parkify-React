@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import styles from "./VehicleList.module.css";
 import CounterVehicles from "@/components/molecules/counterVehicles/CounterVehicles";
 import { formatDateTime } from "@/utils/formatDate";
@@ -11,13 +11,17 @@ import { useLoader } from "@/context/loaderProvider/LoaderProvider";
 import ExitModal from "@/components/atoms/exitModal/ExitModal";
 import TicketModal from "@/components/templates/ticketModal/TicketModal";
 import VehicleExit from "@/components/organisms/vehicleExit/VehicleExit";
+import { ArrowLeft } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 const VehicleList = ({ showExit = true, showHeader = true }) => {
   const [vehiculos, setVehiculos] = useState([]);
   const [selected, setSelected] = useState(null);
   const [ticketData, setTicketData] = useState(null);
+  const [page, setPage] = useState(1);
   const { toggleLoader } = useLoader();
   const notify = useNotification();
+  const rowsPerPage = 7;
 
   const refreshVehicles = async () => {
     toggleLoader(true);
@@ -48,6 +52,11 @@ const VehicleList = ({ showExit = true, showHeader = true }) => {
     return () => window.removeEventListener("vehicles:updated", handler);
   }, []);
 
+  useEffect(() => {
+    const totalPages = Math.max(Math.ceil(vehiculos.length / rowsPerPage), 1);
+    if (page > totalPages) setPage(totalPages);
+  }, [vehiculos.length, page]);
+
   const handleOpenDetails = (vehicle) => {
     const fechaEntrada = formatDateTime(vehicle?.fecha_entrada);
     const tiempoPasado = getElapsedTime(fechaEntrada);
@@ -65,6 +74,20 @@ const VehicleList = ({ showExit = true, showHeader = true }) => {
     setTicketData(null);
     setSelected(null);
   };
+
+  const handlePreviousPage = () => {
+    setPage((prevPage) => Math.max(prevPage - 1, 1));
+  };
+
+  const handleNextPage = () => {
+    setPage((prevPage) => Math.min(prevPage + 1, totalPages));
+  };
+
+  const totalPages = Math.max(Math.ceil(vehiculos.length / rowsPerPage), 1);
+  const pagedVehicles = useMemo(() => {
+    const start = (page - 1) * rowsPerPage;
+    return vehiculos.slice(start, start + rowsPerPage);
+  }, [page, rowsPerPage, vehiculos]);
 
   return (
     <div className={`${styles.layout} ${showHeader ? styles.fullHeight : ""}`}>
@@ -114,7 +137,7 @@ const VehicleList = ({ showExit = true, showHeader = true }) => {
                 </tr>
               </thead>
               <tbody>
-                {vehiculos.map((vehicle, index) => (
+                {pagedVehicles.map((vehicle, index) => (
                   <RowListVehicles
                     selected={selected}
                     onRowClick={() => handleOpenDetails(vehicle)}
@@ -127,6 +150,27 @@ const VehicleList = ({ showExit = true, showHeader = true }) => {
                 ))}
               </tbody>
             </table>
+          </div>
+          <div className={styles.pagination}>
+            <button
+              type="button"
+              className={styles.pageButton}
+              onClick={handlePreviousPage}
+              disabled={page === 1}
+              aria-label="Pagina anterior"
+            >
+              <ArrowLeft />
+            </button>
+            <span className={styles.pageNumber}>{`${page} / ${totalPages}`}</span>
+            <button
+              type="button"
+              className={styles.pageButton}
+              onClick={handleNextPage}
+              disabled={page === totalPages}
+              aria-label="Pagina siguiente"
+            >
+              <ArrowRight />
+            </button>
           </div>
         </div>
       </div>
