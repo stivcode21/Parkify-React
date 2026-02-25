@@ -4,11 +4,13 @@ import { useNotification } from "@/context/notificationProvider/notificationProv
 import { useEffect, useState } from "react";
 import { useLoader } from "@/context/loaderProvider/LoaderProvider";
 import { buildApiUrl } from "@/utils/apiBase";
+import useRefreshStore from "@/store/refreshStore.js";
 
 const Lockers = ({ onLockersLoaded }) => {
   const [lockers, setLockers] = useState([]);
   const notify = useNotification();
   const { toggleLoader } = useLoader();
+  const { lockersRefreshFlag } = useRefreshStore();
 
   useEffect(() => {
     const fetchLockers = async () => {
@@ -41,14 +43,14 @@ const Lockers = ({ onLockersLoaded }) => {
     };
 
     fetchLockers();
-  }, []);
+  }, [lockersRefreshFlag]);
 
   return (
     <div className={styles.layout}>
       <div className={styles.grid}>
         {lockers.map((locker, index) => (
           <Locker
-            key={index}
+            key={locker.id}
             number={locker.numero_casillero}
             placa={locker.placa}
             state={locker.ocupado}
