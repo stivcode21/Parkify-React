@@ -13,6 +13,7 @@ import TicketModal from "@/components/templates/ticketModal/TicketModal";
 import VehicleExit from "@/components/organisms/vehicleExit/VehicleExit";
 import { ArrowLeft } from "lucide-react";
 import { ArrowRight } from "lucide-react";
+import useRefreshStore from "@/store/refreshStore.js";
 
 const VehicleList = ({ showExit = true, showHeader = true }) => {
   const [vehiculos, setVehiculos] = useState([]);
@@ -21,6 +22,7 @@ const VehicleList = ({ showExit = true, showHeader = true }) => {
   const [page, setPage] = useState(1);
   const { toggleLoader } = useLoader();
   const notify = useNotification();
+  const { lockersRefreshFlag } = useRefreshStore();
   const rowsPerPage = 7;
 
   const refreshVehicles = async () => {
@@ -47,10 +49,7 @@ const VehicleList = ({ showExit = true, showHeader = true }) => {
 
   useEffect(() => {
     refreshVehicles();
-    const handler = () => refreshVehicles();
-    window.addEventListener("vehicles:updated", handler);
-    return () => window.removeEventListener("vehicles:updated", handler);
-  }, []);
+  }, [lockersRefreshFlag]);
 
   useEffect(() => {
     const totalPages = Math.max(Math.ceil(vehiculos.length / rowsPerPage), 1);

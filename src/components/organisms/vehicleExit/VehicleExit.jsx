@@ -10,6 +10,7 @@ import { calculatePayment } from "@/utils/calculatePayment";
 import { buildApiUrl } from "@/utils/apiBase";
 import TicketModal from "@/components/templates/ticketModal/TicketModal";
 import { LogOut, Search } from "lucide-react";
+import useRefreshStore from "@/store/refreshStore.js";
 
 const VehicleExit = ({ placaEntry, entry, isBtn }) => {
   const [dataVehiculo, setDataVehiculo] = useState(null);
@@ -17,6 +18,7 @@ const VehicleExit = ({ placaEntry, entry, isBtn }) => {
   const [ticketOpen, setTicketOpen] = useState(false);
   const { toggleLoader } = useLoader();
   const notify = useNotification();
+  const { triggerLockersRefresh } = useRefreshStore();
 
   const entrada = formatDateTime(dataVehiculo?.fecha_entrada || entry);
   const salida = formatDateTime(new Date());
@@ -87,18 +89,18 @@ const VehicleExit = ({ placaEntry, entry, isBtn }) => {
       const data = await res.json();
 
       if (!res.ok) {
-        notify("Error", data.message || "Error al registrar el vehiculo.");
+        notify("Error", data.message || "Error al dar salida a el vehiculo.");
         return;
       }
 
       notify("Success", "Vehiculo dado de salida correctamente.");
-      window.dispatchEvent(new CustomEvent("vehicles:updated"));
+      triggerLockersRefresh();
       setTicketOpen(false);
       setDataVehiculo(null);
       setPlaca("");
-    } catch (err) {
-      console.error(err);
-      notify("Error", "Error al buscar el vehiculo.");
+    } catch (erro) {
+      console.error(erro);
+      notify("Error", "Error al dar salida al vehiculo.");
     } finally {
       toggleLoader(false);
     }
