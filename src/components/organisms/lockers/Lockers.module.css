@@ -3,7 +3,70 @@
   min-height: clamp(320px, 42vh, 420px);
   max-height: clamp(210px, 50vh, 720px);
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+}
+
+.panelHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.panelTitle {
+  margin: 0;
+  padding-left: 8px;
+  font-size: 0.9rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.badges {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  font-size: 0.72rem;
+  color: #9aa6b5;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid #2a323b;
+  background: #12171d;
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid #2a323b;
+  background: #12171d;
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  flex: 0 0 auto;
+}
+
+.dotBusy {
+  background: #ff0000;
+}
+
+.dotActive {
+  background: #00ff2f;
+}
+
+.statusCount {
+  font-size: 0.72rem;
+  color: #9aa6b5;
 }
 
 .grid {
@@ -12,6 +75,7 @@
   grid-template-columns: repeat(auto-fit, minmax(54px, 1fr));
   gap: 8px;
   justify-items: center;
+  padding-bottom: 10px;
 }
 
 @media (width <= 764px) {
