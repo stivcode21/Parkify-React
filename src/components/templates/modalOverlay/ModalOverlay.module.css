@@ -9,7 +9,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 24px;
+  gap: 40px;
+  padding: 30px;
 }
 
 .modal {
@@ -25,6 +26,14 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
+}
+
+.firstmodal {
+  min-height: 34rem;
+  overflow: auto;
+  width: min(440px, 50vw);
+  padding: 16px;
+  justify-content: start;
 }
 
 .modal::-webkit-scrollbar {
@@ -67,8 +76,13 @@
 @media (width <= 900px) {
   .overlay {
     padding: 4px;
+    flex-direction: column;
+    overflow: auto;
   }
   .modal {
     width: 92%;
+  }
+  .firstmodal {
+    min-height: 15rem;
   }
 }
