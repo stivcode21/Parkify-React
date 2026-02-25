@@ -110,18 +110,7 @@
 
 .content {
   width: 100%;
-  display: grid;
-  grid-template-columns: minmax(240px, 320px) minmax(0, 1fr);
-  gap: clamp(16px, 2vw, 24px);
-  align-items: start;
-}
-
-.lockersPanel {
-  background: rgba(16, 20, 25, 0.92);
-  border: 1px solid #232932;
-  border-radius: 18px;
-  padding: 16px;
-  height: fit-content;
+  height: 28rem;
 }
 
 .dateContainer {
@@ -130,115 +119,6 @@
   justify-content: start;
   flex-direction: column;
   gap: 2px;
-}
-
-.panelHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-bottom: 12px;
-}
-
-.panelTitle {
-  margin: 0;
-  font-size: 0.9rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #ffffff;
-}
-
-.badges {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.badge {
-  font-size: 0.72rem;
-  color: #9aa6b5;
-  padding: 4px 10px;
-  border-radius: 999px;
-  border: 1px solid #2a323b;
-  background: #12171d;
-}
-
-.statusBadge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 10px;
-  border-radius: 999px;
-  border: 1px solid #2a323b;
-  background: #12171d;
-}
-
-.statusDot {
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  flex: 0 0 auto;
-}
-
-.dotBusy {
-  background: #ff0000;
-}
-
-.dotActive {
-  background: #00ff2f;
-}
-
-.statusCount {
-  font-size: 0.72rem;
-  color: #9aa6b5;
-}
-
-.panelBody {
-  max-height: clamp(380px, 48vh, 560px);
-  overflow: auto;
-  padding-right: 4px;
-}
-
-@media (width >= 1000px) {
-  .content {
-    flex: 1;
-    min-height: 0;
-    align-items: stretch;
-  }
-
-  .lockersPanel {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    min-height: 0;
-  }
-
-  .panelBody {
-    flex: 1;
-    min-height: 0;
-    max-height: none;
-  }
-}
-
-@media (width <= 1100px) {
-  .content {
-    grid-template-columns: 0.6fr 1fr;
-  }
-
-  .panelBody {
-    max-height: none;
-  }
-}
-
-@media (width >= 1440px) {
-  .content {
-    grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
-  }
-
-  .lockersPanel {
-    padding: 18px;
-  }
 }
 
 @media (width <= 768px) {
