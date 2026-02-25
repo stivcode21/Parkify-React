@@ -40,12 +40,12 @@
 
 .layout {
   width: 100%;
+  height: 100%;
   padding: 0 4%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  min-height: 0;
   position: relative;
   z-index: 1;
 }
@@ -72,9 +72,6 @@
   padding: 16px;
   display: flex;
   flex-direction: column;
-  min-height: clamp(320px, 42vh, 520px);
-  max-height: clamp(410px, 54vh, 720px);
-  overflow: hidden;
 }
 
 .listTopbar {
@@ -128,7 +125,8 @@
   border-radius: 0;
   border: none;
   overflow: auto;
-  height: 100%;
+  height: 500px;
+  max-height: 500px;
 }
 
 table {
@@ -185,10 +183,6 @@ thead th {
   .listBody {
     flex: 1;
     min-height: 0;
-  }
-
-  .tableCard {
-    height: 100%;
   }
 }
 
