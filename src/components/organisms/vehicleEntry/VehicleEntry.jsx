@@ -3,9 +3,9 @@ import styles from "./VehicleEntry.module.css";
 import ButtonSend from "@/components/atoms/buttonSend/ButtonSend";
 import { useNotification } from "@/context/notificationProvider/notificationProvider";
 import { useLoader } from "@/context/loaderProvider/LoaderProvider";
-import ParkifyLogov2 from "@/components/atoms/parkifyLogov2/ParkifyLogov2";
 import { CarFront, Hash, Tag } from "lucide-react";
 import { buildApiUrl } from "@/utils/apiBase";
+import useRefreshStore from "@/store/refreshStore.js";
 
 const VehicleEntry = () => {
   const [vehiculo, setVehiculo] = useState("");
@@ -13,6 +13,7 @@ const VehicleEntry = () => {
   const [casillero, setCasillero] = useState("");
   const { toggleLoader } = useLoader();
   const notify = useNotification();
+  const { triggerLockersRefresh } = useRefreshStore();
 
   const validateForm = () => {
     const inputPlaca = document.getElementById("placa");
@@ -58,7 +59,7 @@ const VehicleEntry = () => {
           numeroLocker: casillero || null,
         }),
       });
-
+      triggerLockersRefresh();
       const data = await res.json();
 
       if (!res.ok) {
