@@ -1,6 +1,6 @@
  <p align="center">
   <img src="https://i.ibb.co/n8L9f8k4/PARKIFY-1.webp" alt="Parkify Preview" width="700" height="500" />
-</p>
+ </p>
 
 
 <div align="center">
