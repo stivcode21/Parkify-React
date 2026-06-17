@@ -10,7 +10,7 @@
 <p align="center">
   <strong>App web para gestionar parqueaderos con autenticación y control total de usuarios.</strong><br/>
   <em>Aplicación fullstack responsive desarrollada con React y Supabase.</em>
-</p>
+</p>. 
 
 ---
 
